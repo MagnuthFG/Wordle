@@ -1,0 +1,70 @@
+===============================================================
+// TO DO LIST
+===============================================================
+# Create a UIObject class and place on the slots
+- Should contain a method for rescaling based on resolution?
+
+- Should contain a method for changing material colour
+
+
+# Create the UIGrid and UIObject
+- Be able to specify number of slot rows and columns
+  Set origin/centre screen position in percent
+  Set offset for even and uneven rows and columns
+
+- Specify default screen resolution and slot scale/size
+  Rescale default slot scale/size based on current screen
+  resolution. Have a script that checks every frame?
+
+- Have scale and position dynamically update on screen
+  resolution change
+
+
+# Create a UIKeyboardKey class
+  Include a public string getter for the letter
+ 
+
+# Create a UIKeyboard class that fetches all UIKeyboardKey scripts in children
+  and place these in a dictionary based on its letter
+
+
+# In UIKeyboard get the anykey event and then get the key from that
+  Use the key to trigger the KeyboardKey
+
+
+# Read the txt file of words and put each word in a list?
+
+
+# Use DateTime.Current.Date as the seed for the word of the day
+  Then use System.Random(seed) to pick the word in the list
+ 
+ 
+# Create a word comparing method
+  First loop over chars in randomly selected word string
+  Then loop over chars in player written string
+  
+  Check if the char in written string is same the as the
+  the char in the word string. Then check if they loops
+  have the same index. If they have, colour slot green,
+  else colour it yellow and if nothing is right then red
+  
+ 
+ 
+===============================================================
+// BUGS AND IMPROVEMENTS
+===============================================================
+
+# Add glow effects etc to the shaders so it looks more scifi!
+  Add a white scifi panel background or something?
+
+
+# Find out why the input font works with one font but not
+  with the other ones. See if I can solve how to fix it!
+  
+  Maybe the other ones aren't square? 
+  I might have to rescale the rect values if the width
+  height ratio is not the same, aka 1,1?
+  
+  The lookup index is not correct on the official TMP fonts
+  but works with the ones I've made. Test with more fonts
+  and see what the problem is!
