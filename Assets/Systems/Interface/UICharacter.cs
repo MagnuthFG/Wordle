@@ -3,26 +3,22 @@ using Convert = System.Convert;
 using UnityEngine;
 using TMPro;
 
-namespace Wordl
+namespace Wordl.Interface
 {
-    [RequireComponent(typeof(MeshRenderer))]
-    public class UIInputChar : MonoBehaviour
+    public class UICharacter : UIObject
     {
         [SF] private TMP_FontAsset _font = null;
-        private Material _material = null;
 
 // INITIALISATION
 
         /// <summary>
-        /// Initialises the input
+        /// Initialises the interface
         /// </summary>
-        private void Awake(){
-            var renderer = GetComponent<MeshRenderer>();
-            _material = renderer.material;
+        private void Start(){
             SetCharater("T"); // TEMP
         }
 
-// INPUT HANDLING
+// SETTINGS
 
         /// <summary>
         /// Changes the displayed character

@@ -1,23 +1,26 @@
 ===============================================================
 // TO DO LIST
 ===============================================================
-# Create a UIObject class and place on the slots
-- Should contain a method for rescaling based on resolution?
 
-- Should contain a method for changing material colour
+# Continue on the UIElement
+- Fix so that SetSize and SetTransform updates children sizes?
+
+- Fix the bug that causes UICharacter to not get scaled properly
+  Maybe add a checkbox if it should update children?
 
 
-# Create the UIGrid and UIObject
-- Be able to specify number of slot rows and columns
-  Set origin/centre screen position in percent
-  Set offset for even and uneven rows and columns
-
+# Continue on the UICanvas script
 - Specify default screen resolution and slot scale/size
   Rescale default slot scale/size based on current screen
-  resolution. Have a script that checks every frame?
+  resolution
+  
+- Check every frame for screen resolution change
+  and if it does tell all child objects what scale multiplier
+  they should have?
 
-- Have scale and position dynamically update on screen
-  resolution change
+
+# Create the UIArray
+- Places objects in a line horizontally or vertically
 
 
 # Create a UIKeyboardKey class
@@ -56,15 +59,21 @@
 
 # Add glow effects etc to the shaders so it looks more scifi!
   Add a white scifi panel background or something?
-
+  Use the SDF and smooth step to create inner and outer glow
+  
 
 # Find out why the input font works with one font but not
   with the other ones. See if I can solve how to fix it!
   
-  Maybe the other ones aren't square? 
-  I might have to rescale the rect values if the width
-  height ratio is not the same, aka 1,1?
+  Try removing padding from the rect and see if that
+  creates a more favourable outcome on other fonts
   
   The lookup index is not correct on the official TMP fonts
   but works with the ones I've made. Test with more fonts
   and see what the problem is!
+  
+  
+# Fix so the shaders/materials have higher render queue?
+  Check if there is a UI render queue already that I can use?
+  Else have UIObject manually set the render queue on Awake?
+  https://forum.unity.com/threads/how-to-change-the-render-queue.682036/#post-7614322
