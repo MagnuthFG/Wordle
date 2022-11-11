@@ -2091,7 +2091,7 @@ Transform:
   m_GameObject: {fileID: 1029138834}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 139865141}
@@ -2110,6 +2110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8591bb556ad23834bbe886fabaac936c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _point: {x: 0, y: 0, z: 0}
+  _size: {x: 1, y: 1, z: 1}
   _defResolution: {x: 1920, y: 1080}
 --- !u!1001 &1155807095
 PrefabInstance:
@@ -3385,14 +3387,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5944470956951678848, guid: b7b9639c25a11764f9a7ccff897cf791, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5944470956951678848, guid: b7b9639c25a11764f9a7ccff897cf791, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5944470956951678848, guid: b7b9639c25a11764f9a7ccff897cf791, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3436,13 +3430,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots
       objectReference: {fileID: 0}
-    - target: {fileID: 5944470956951678849, guid: b7b9639c25a11764f9a7ccff897cf791, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 5944470956951678851, guid: b7b9639c25a11764f9a7ccff897cf791, type: 3}
+      propertyPath: _widthHeightDepth.x
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5944470956951678851, guid: b7b9639c25a11764f9a7ccff897cf791, type: 3}
-      propertyPath: _centre.x
-      value: -0.2
+      propertyPath: _widthHeightDepth.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944470956951678851, guid: b7b9639c25a11764f9a7ccff897cf791, type: 3}
+      propertyPath: _widthHeightDepth.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7b9639c25a11764f9a7ccff897cf791, type: 3}

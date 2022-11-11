@@ -13,9 +13,9 @@ namespace Wordl.Interface
         /// <summary>
         /// Initialises: Canvas elements
         /// </summary>
-        private void Awake(){
-            _resScaler = GetResolution();
-            _tfmScaler = GetScaler();
+        protected override void Awake(){
+            _resScaler  = GetResolution();
+            _sizeScaler = GetScaler();
 
             for (int i = 0; i < transform.childCount; i++){
                 var child = transform.GetChild(i);
@@ -23,7 +23,7 @@ namespace Wordl.Interface
                 var element = child.GetComponent<UIElement>();
                 if (element == null) continue;
 
-                element.SetScalerAndRes(_tfmScaler, _resScaler);
+                element.SetScalerAndRes(_sizeScaler, _resScaler);
             }
         }
 
@@ -46,8 +46,12 @@ namespace Wordl.Interface
         /// <summary>
         /// Returns: Transform scaler
         /// </summary>
-        private Vector2 GetScaler(){
+        private Vector3 GetScaler(){
             return transform.localScale;
         }
+
+// RESOLUTION
+
+
     }
 }

@@ -2,12 +2,14 @@
 // TO DO LIST
 ===============================================================
 
-# Continue on the UIElement
-- Fix so that SetSize and SetTransform updates children sizes?
-
-- Fix the bug that causes UICharacter to not get scaled properly
-  Maybe add a checkbox if it should update children?
-
+# Continue fixing the UIElement
+- Changing UIGrid to spawn at a smaller size causes
+  the UICharacter elements to get the larger than its parent
+  
+  Need to add the ability to enable and disable relative size
+  so that the UICharacter elements size are relative to the
+  slot/parent
+  
 
 # Continue on the UICanvas script
 - Specify default screen resolution and slot scale/size

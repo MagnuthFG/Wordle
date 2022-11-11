@@ -6,6 +6,7 @@ namespace Wordl.Interface
     [RequireComponent(typeof(MeshRenderer))]
     public class UIObject : UIElement
     {
+        [Header("Properties")]
         [SF] protected Color _colour = Color.white;
         protected Material _material = null;
 
@@ -14,9 +15,10 @@ namespace Wordl.Interface
         /// <summary>
         /// Initialises the interface
         /// </summary>
-        protected virtual void Awake(){
-            var renderer = GetComponent<MeshRenderer>();
+        protected override void Awake(){
+            base.Awake();
             
+            var renderer = GetComponent<MeshRenderer>();
             _material = renderer.material;
             _material.color = _colour;
         }
