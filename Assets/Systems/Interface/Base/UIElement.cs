@@ -2,12 +2,15 @@ using SF = UnityEngine.SerializeField;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Wordl.Interface {
+namespace Wordl.Interface 
+{
+    [DisallowMultipleComponent]
     public abstract class UIElement : MonoBehaviour
     {
         [Header("Transform")]
-        [SF] protected Vector3 _point = Vector3.zero;
-        [SF] protected Vector3 _size  = Vector3.one;
+        [SF] protected Vector3 _point  = Vector3.zero;
+        [SF] protected Vector3 _size   = Vector3.one;
+        [SF] protected Sizing  _sizing = Sizing.Absolute;
 
         protected float   _resScaler  = 1f;
         protected Vector3 _sizeScaler = Vector3.one;
@@ -87,9 +90,13 @@ namespace Wordl.Interface {
         /// </summary>
         /// <param name="value">Default value</param>
         private Vector3 Rescale(Vector3 value){
+            if (_sizing == Sizing.Relative)
+                return value;
+
             value.x = value.x * _resScaler / _sizeScaler.x;
             value.y = value.y * _resScaler / _sizeScaler.y;
             value.z = value.z * _resScaler / _sizeScaler.z;
+
             return value;
         }
 
@@ -161,7 +168,7 @@ namespace Wordl.Interface {
         /// <summary>
         /// Updates child element scalers
         /// </summary>
-        private void UpdateElements(){
+        protected void UpdateElements(){
             if (!HasElements()) return;
 
             var sizeScaler = GetChildScaler();

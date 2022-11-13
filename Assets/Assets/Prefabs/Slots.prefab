@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _point: {x: 0, y: 0, z: 0}
   _size: {x: 1, y: 1, z: 1}
+  _sizing: 0
   _count: {x: 5, y: 5}
   _centre: {x: -0.2, y: 0, z: 0}
   _spacing: {x: -0.05, y: -0.165, z: 0}

@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Wordl.Interface
 {
-    [RequireComponent(typeof(MeshRenderer))]
+    [AddComponentMenu("Magnuth/Interface/UIObject"),
+     RequireComponent(typeof(MeshRenderer))]
     public class UIObject : UIElement
     {
         [Header("Properties")]

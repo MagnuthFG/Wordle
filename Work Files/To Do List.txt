@@ -3,13 +3,21 @@
 ===============================================================
 
 # Continue fixing the UIElement
-- Changing UIGrid to spawn at a smaller size causes
-  the UICharacter elements to get the larger than its parent
+- Cash the transform to increase performance a little bit
+
+
+# Continue fixing the UIGrid
+- Add a button underneath the grid that allow me to spawn
+  the grid tiles in edit mode
   
-  Need to add the ability to enable and disable relative size
-  so that the UICharacter elements size are relative to the
-  slot/parent
+  Also add a delete button that goes through and compares child
+  objects to the prefab? If they are the same then remove it
+  Must also delete the old ones when updating the grid
   
+- Remove spawn on start and only have it in edit mode
+  But keep the BuildGrid method public so it can be called
+  from script
+
 
 # Continue on the UICanvas script
 - Specify default screen resolution and slot scale/size
@@ -19,10 +27,6 @@
 - Check every frame for screen resolution change
   and if it does tell all child objects what scale multiplier
   they should have?
-
-
-# Create the UIArray
-- Places objects in a line horizontally or vertically
 
 
 # Create a UIKeyboardKey class
@@ -53,8 +57,13 @@
   have the same index. If they have, colour slot green,
   else colour it yellow and if nothing is right then red
   
- 
- 
+  
+# Fix so the submitted words are saved to a encrypted json file
+  and is only reset on a new date. Store the date and words in
+  a struct which is then converted to json
+
+
+
 ===============================================================
 // BUGS AND IMPROVEMENTS
 ===============================================================

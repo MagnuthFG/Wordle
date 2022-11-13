@@ -1,11 +1,13 @@
 using SF = UnityEngine.SerializeField;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Wordl.Interface 
 {
     [DefaultExecutionOrder(-1)]
     public class UICanvas : UIElement
     {
+        [Header("Canvas")]
         [SF] private Vector2Int _defResolution = new Vector2Int(1920, 1080);
 
 // INITIALISATION
@@ -17,14 +19,7 @@ namespace Wordl.Interface
             _resScaler  = GetResolution();
             _sizeScaler = GetScaler();
 
-            for (int i = 0; i < transform.childCount; i++){
-                var child = transform.GetChild(i);
-
-                var element = child.GetComponent<UIElement>();
-                if (element == null) continue;
-
-                element.SetScalerAndRes(_sizeScaler, _resScaler);
-            }
+            UpdateElements();
         }
 
         /// <summary>
