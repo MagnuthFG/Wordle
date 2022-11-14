@@ -2,33 +2,41 @@ using SF = UnityEngine.SerializeField;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-// https://docs.unity3d.com/2019.1/Documentation/ScriptReference/EventSystems.IPointerClickHandler.html
-
-// REMEMBER add restricyion so only one component of this type
-// to UIElement so that UI game objects can only have one UI transform
-
 namespace Wordl.Interface {
 	public class UIButton : UIObject, IPointerClickHandler
 	{
 		[Header("Button")]
-		[SF] protected MonoBehaviour _target = null;
+		[SF] protected GameObject _target = null;
 		protected IButtonTarget _btnTarget = null;
 		
 // INITIALISATION
 
 		/// <summary>
-		/// Initialises: Button target
+		/// Initialises: button target
 		/// </summary>
 		protected override void Awake(){
-			_btnTarget = (IButtonTarget)_target;
-		}
+			base.Awake();
+            SetTarget(_target);
+        }
 		
+// SETTINGS
+
+		/// <summary>
+		/// Specifies: button target
+		/// </summary>
+		public void SetTarget(GameObject target){
+			if (target == null) return;
+
+			_target	   = target;
+			_btnTarget = target.GetComponent<IButtonTarget>();
+        }
+
 // INTERFACE
 
 		/// <summary>
-		/// 
+		/// Event: on mouse clicked
 		/// </summary>
-		public void OnPointerClick(PointerEventData data){
+		public virtual void OnPointerClick(PointerEventData data){
 	        _btnTarget?.OnClicked();
 	    }
 	}

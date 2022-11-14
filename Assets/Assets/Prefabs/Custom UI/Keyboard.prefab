@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5944470956951678849
+--- !u!1 &2073827592257061276
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5944470956951678848}
-  - component: {fileID: 5944470956951678851}
+  - component: {fileID: 2073827592257061277}
+  - component: {fileID: 2073827592257061278}
   m_Layer: 5
-  m_Name: Slots
+  m_Name: Keyboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5944470956951678848
+--- !u!4 &2073827592257061277
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5944470956951678849}
+  m_GameObject: {fileID: 2073827592257061276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5944470956951678851
+--- !u!114 &2073827592257061278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5944470956951678849}
+  m_GameObject: {fileID: 2073827592257061276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c57ee5beb896047bad82a41782af73, type: 3}
+  m_Script: {fileID: 11500000, guid: 45497a9fc76bf6145be012b867d32afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _point: {x: 0, y: 0, z: 0}
+  _point: {x: 0, y: -2.25, z: 0}
   _size: {x: 1, y: 1, z: 1}
   _sizing: 0
-  _count: {x: 5, y: 5}
-  _centre: {x: -0.2, y: 0, z: 0}
-  _spacing: {x: -0.05, y: -0.165, z: 0}
-  _evenColumnOffset: {x: 0, y: 0, z: 0}
-  _unevenColumnOffset: {x: 0, y: 0, z: 0}
-  _evenRowOffset: {x: 0.475, y: 0, z: 0}
-  _unevenRowOffset: {x: 0, y: 0, z: 0}
-  _widthHeightDepth: {x: 1, y: 1, z: 1}
-  _prefab: {fileID: 6368819617366755843, guid: f09b2899f5dd6cd459d850d15df02a96, type: 3}
+  _centre: {x: 0.5, y: 0, z: 0}
+  _spacing: {x: 0, y: 0, z: 0}
+  _widthHeightDepth: {x: 0.75, y: 0.75, z: 1}
+  _prefab: {fileID: 8523866258442836565, guid: fe9c765c2a7084e4fb1976039d1699a2, type: 3}

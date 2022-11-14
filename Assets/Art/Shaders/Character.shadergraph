@@ -636,7 +636,7 @@
     "m_RefNameGeneratedByDisplayName": "Character Rect",
     "m_DefaultReferenceName": "_Character_Rect",
     "m_OverrideReferenceName": "_Rect",
-    "m_GeneratePropertyBlock": false,
+    "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_Precision": 0,

@@ -1,6 +1,6 @@
 namespace Wordl.Interface {
 	public interface IButtonTarget
 	{
-		public void OnClicked();
+		public void OnClicked(params object[] args);
 	}
 }

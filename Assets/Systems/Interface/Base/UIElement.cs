@@ -15,6 +15,7 @@ namespace Wordl.Interface
         protected float   _resScaler  = 1f;
         protected Vector3 _sizeScaler = Vector3.one;
         protected List<UIElement> _elements = new();
+        protected Transform _transform = null;
 
 // INITIALISATION
 
@@ -22,8 +23,9 @@ namespace Wordl.Interface
         /// Initialises: element size and position
         /// </summary>
         protected virtual void Awake(){
-            _point = transform.localPosition;
-            _size  = transform.localScale;
+            _transform = transform;
+            _point = _transform.localPosition;
+            _size  = _transform.localScale;
         }
 
         /// <summary>
@@ -40,8 +42,8 @@ namespace Wordl.Interface
             _sizeScaler = scaler;
 
             // Must set unscaled position first
-            transform.localPosition = _point;
-            transform.localScale    = _size;
+            _transform.localPosition = _point;
+            _transform.localScale    = _size;
 
             // Then set scaled position
             SetTransform(_point, _size);
@@ -55,7 +57,7 @@ namespace Wordl.Interface
         /// <param name="position">Local position</param>
         public void SetPosition(Vector3 position){
             _point = position;
-            transform.localPosition = _point;
+            _transform.localPosition = _point;
         }
 
         /// <summary>
@@ -64,7 +66,7 @@ namespace Wordl.Interface
         /// <param name="size">Local scale</param>
         public void SetSize(Vector3 size){
             _size = Rescale(size);
-            transform.localScale = _size;
+            _transform.localScale = _size;
 
             UpdateElements();
         }
@@ -78,8 +80,8 @@ namespace Wordl.Interface
             _point = Rescale(position);
             _size  = Rescale(size);
 
-            transform.localPosition = _point;
-            transform.localScale    = _size;
+            _transform.localPosition = _point;
+            _transform.localScale    = _size;
 
             UpdateElements();
         }
@@ -114,8 +116,8 @@ namespace Wordl.Interface
             _point = Rescale(_point);
             _size  = Rescale(_size);
 
-            transform.localPosition = _point;
-            transform.localScale    = _size;
+            _transform.localPosition = _point;
+            _transform.localScale    = _size;
 
             UpdateElements();
         }
@@ -128,7 +130,7 @@ namespace Wordl.Interface
             _resScaler = resolution;
 
             _size = Rescale(_size);
-            transform.localScale = _size;
+            _transform.localScale = _size;
 
             UpdateElements();
         }
@@ -141,7 +143,7 @@ namespace Wordl.Interface
             _sizeScaler = scaler;
 
             _size = Rescale(_size);
-            transform.localScale = _size;
+            _transform.localScale = _size;
 
             UpdateElements();
         }
@@ -184,7 +186,7 @@ namespace Wordl.Interface
         /// Returns: If this element contains child elements
         /// </summary>
         private bool HasElements(){
-            var count = transform.childCount;
+            var count = _transform.childCount;
             if (count == 0) return false;
 
             if (_elements.Count == count) 
@@ -200,8 +202,8 @@ namespace Wordl.Interface
         private void AddElements(){
             _elements.Clear();
 
-            for (int i = 0; i < transform.childCount; i++){
-                var child   = transform.GetChild(i).gameObject;
+            for (int i = 0; i < _transform.childCount; i++){
+                var child   = _transform.GetChild(i).gameObject;
                 var element = child.GetComponent<UIElement>();
 
                 if (element == null){
@@ -222,14 +224,16 @@ namespace Wordl.Interface
         }
 
         /// <summary>
-        /// Updates gameobject transform via element transform
+        /// Updates: gameobject transform via element transform
         /// </summary>
         protected virtual void OnInspectorUpdate(){
-            if (transform.localPosition != _point)
-                transform.localPosition = _point;
+            _transform = transform;
 
-            if (transform.localScale != _size)
-                transform.localScale = _size;
+            if (_transform.localPosition != _point)
+                _transform.localPosition = _point;
+
+            if (_transform.localScale != _size)
+                _transform.localScale = _size;
         }
     }
 }

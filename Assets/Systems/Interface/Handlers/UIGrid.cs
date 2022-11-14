@@ -8,7 +8,7 @@ namespace Wordl.Interface {
         [SF] private Vector2Int _count  = Vector2Int.one;
 
         [Header("Position")]
-        [SF] private Vector3 _centre  = Vector3.one * 0.5f;
+        [SF] private Vector3 _centre  = Vector3.zero;
         [SF] private Vector3 _spacing = Vector3.zero;
         [Space]
         [SF] private Vector3 _evenColumnOffset   = Vector3.zero;
@@ -23,25 +23,25 @@ namespace Wordl.Interface {
 
 // INITIALISATION
 
-        /// <summary>
-        /// Initialises the grid
-        /// </summary>
         private void Start() => BuildGrid();
 
 // INTERFACE
 
         /// <summary>
-        /// Instantiates the grid
+        /// Instantiates: grid
         /// </summary>
         private void BuildGrid(){
             var scaler = GetChildScaler();
             var half   = _count / 2;
+
+            var xSize = (_widthHeightDepth.x + _spacing.x);
+            var ySize = (_widthHeightDepth.y + _spacing.y);
             var point  = _centre;
 
             for (int y = -half.y; y < half.y + _count.y % 2; y++){
                 for (int x = -half.x; x < half.x + _count.x % 2; x++){
-                    point.x = _centre.x + (_widthHeightDepth.x + _spacing.x) * x;
-                    point.y = _centre.y + (_widthHeightDepth.y + _spacing.y) * y;
+                    point.x = _centre.x + xSize * x;
+                    point.y = _centre.y + ySize * y;
 
                     bool evenRow = y % 2 == 0;
                     point.x += evenRow ? _evenRowOffset.x : _unevenRowOffset.x;
@@ -51,10 +51,10 @@ namespace Wordl.Interface {
                     point.x += evenColumn ? _evenColumnOffset.x : _unevenColumnOffset.x;
                     point.y += evenColumn ? _evenColumnOffset.y : _unevenColumnOffset.y;
 
-                    var obj = Instantiate(_prefab, transform);
+                    var obj = Instantiate(_prefab, _transform);
                     var ui = obj.GetComponent<UIElement>();
-
                     if (ui == null) continue;
+
                     ui.Initialise(point, _widthHeightDepth, scaler, _resScaler);
                 }
             }

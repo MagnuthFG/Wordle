@@ -14,7 +14,7 @@ namespace Wordl.Interface
 // INITIALISATION
 
         /// <summary>
-        /// Initialises the interface
+        /// Initialises: Material instance and colour
         /// </summary>
         protected override void Awake(){
             base.Awake();
@@ -27,7 +27,7 @@ namespace Wordl.Interface
 // SETTINGS
 
         /// <summary>
-        /// Changes the material colour
+        /// Specifies: Material colour
         /// </summary>
         public void SetColour(Color colour){
             _material.color = colour;
