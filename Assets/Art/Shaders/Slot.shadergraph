@@ -17,9 +17,6 @@
         },
         {
             "m_Id": "00ac069881dc419da85fb9897a3ef53b"
-        },
-        {
-            "m_Id": "f9d786bcb68d4873b2130963d3a6c097"
         }
     ],
     "m_Keywords": [],
@@ -406,9 +403,6 @@
         },
         {
             "m_Id": "4b7d42f01fac4e208b1becee6e01acb1"
-        },
-        {
-            "m_Id": "f9d786bcb68d4873b2130963d3a6c097"
         }
     ]
 }
@@ -1910,35 +1904,6 @@
         "z": 0.0,
         "w": 0.0
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
-    "m_ObjectId": "f9d786bcb68d4873b2130963d3a6c097",
-    "m_Guid": {
-        "m_GuidSerialized": "9735f7f0-7672-4c8a-be05-336fc67f0f6b"
-    },
-    "m_Name": "MainTex",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "MainTex",
-    "m_DefaultReferenceName": "_MainTex",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
-        "m_Guid": ""
-    },
-    "isMainTexture": false,
-    "useTilingAndOffset": false,
-    "m_Modifiable": true,
-    "m_DefaultType": 0
 }
 
 {

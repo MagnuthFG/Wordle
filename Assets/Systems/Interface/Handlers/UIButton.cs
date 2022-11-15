@@ -2,13 +2,21 @@ using SF = UnityEngine.SerializeField;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-namespace Wordl.Interface {
-	public class UIButton : UIObject, IPointerClickHandler
+namespace Magnuth.Interface
+{
+	[AddComponentMenu("Magnuth/Interface/UI Button")]
+	public class UIButton : UIObject, 
+	IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 	{
-		[Header("Button")]
+		[SF] protected Color _highlighted = Color.white;
+        [SF] protected Color _pressed	  = Color.white;
+
+        [Header("Button")]
 		[SF] protected GameObject _target = null;
 		protected IButtonTarget _btnTarget = null;
-		
+
+		protected bool _hovering = false;
+
 // INITIALISATION
 
 		/// <summary>
@@ -33,11 +41,35 @@ namespace Wordl.Interface {
 
 // INTERFACE
 
-		/// <summary>
-		/// Event: on mouse clicked
-		/// </summary>
-		public virtual void OnPointerClick(PointerEventData data){
-	        _btnTarget?.OnClicked();
-	    }
+        /// <summary>
+        /// Event: on mouse over
+        /// </summary>
+        public virtual void OnPointerEnter(PointerEventData eventData){
+            SetColour(_highlighted);
+			_hovering = true;
+		}
+
+        /// <summary>
+        /// Event: on mouse exited
+        /// </summary>
+        public virtual void OnPointerExit(PointerEventData eventData){
+            SetColour(_colour);
+            _hovering = false;
+        }
+
+        /// <summary>
+        /// Event: on mouse clicked
+        /// </summary>
+        public virtual void OnPointerDown(PointerEventData eventData){
+			SetColour(_pressed);
+		}
+
+        /// <summary>
+        /// Event: on mouse released
+        /// </summary>
+        public virtual void OnPointerUp(PointerEventData eventData){
+            SetColour(_hovering ? _highlighted : _colour);
+            _btnTarget?.OnClicked();
+        }
 	}
 }

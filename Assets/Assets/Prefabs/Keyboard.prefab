@@ -49,5 +49,5 @@ MonoBehaviour:
   _sizing: 0
   _centre: {x: 0.5, y: 0, z: 0}
   _spacing: {x: 0, y: 0, z: 0}
-  _widthHeightDepth: {x: 0.75, y: 0.75, z: 1}
+  _widthHeightDepth: {x: 0.65, y: 0.65, z: 1}
   _prefab: {fileID: 8523866258442836565, guid: fe9c765c2a7084e4fb1976039d1699a2, type: 3}

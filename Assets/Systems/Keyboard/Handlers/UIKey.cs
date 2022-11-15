@@ -1,10 +1,10 @@
 using SF = UnityEngine.SerializeField;
-using UnityEngine;
-using Wordl.Interface;
 using UnityEngine.EventSystems;
+using UnityEngine;
 
-namespace Wordl.Keyboard
+namespace Magnuth.Interface
 {
+    [AddComponentMenu("Magnuth/Interface/UI Key")]
     public class UIKey : UIButton
     {
         [SF] private UICharacter _character = null;
@@ -25,9 +25,10 @@ namespace Wordl.Keyboard
 // INTERFACE
 
         /// <summary>
-        /// Event: on mouse clicked
+        /// Event: on mouse released
         /// </summary>
-        public override void OnPointerClick(PointerEventData data){
+        public override void OnPointerUp(PointerEventData data){
+            SetColour(_hovering ? _highlighted : _colour);
             _btnTarget?.OnClicked(Key);
         }
     }

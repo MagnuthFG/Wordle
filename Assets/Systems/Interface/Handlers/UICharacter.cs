@@ -3,12 +3,14 @@ using Convert = System.Convert;
 using UnityEngine;
 using TMPro;
 
-namespace Wordl.Interface
+namespace Magnuth.Interface
 {
+    [AddComponentMenu("Magnuth/Interface/UI Character")]
     public class UICharacter : UIObject
     {
         [SF] private string _character = " ";
         [SF] private TMP_FontAsset _font = null;
+        //[SF] private FontSetup _font = null;
 
 // PROPERTIES
 

@@ -1,9 +1,9 @@
 using SF = UnityEngine.SerializeField;
 using UnityEngine;
 
-namespace Wordl.Interface
+namespace Magnuth.Interface
 {
-    [AddComponentMenu("Magnuth/Interface/UIObject"),
+    [AddComponentMenu("Magnuth/Interface/UI Object"),
      RequireComponent(typeof(MeshRenderer))]
     public class UIObject : UIElement
     {
@@ -14,7 +14,7 @@ namespace Wordl.Interface
 // INITIALISATION
 
         /// <summary>
-        /// Initialises: Material instance and colour
+        /// Initialises: material instance and colour
         /// </summary>
         protected override void Awake(){
             base.Awake();
@@ -27,10 +27,19 @@ namespace Wordl.Interface
 // SETTINGS
 
         /// <summary>
-        /// Specifies: Material colour
+        /// Specifies: material colour
         /// </summary>
         public void SetColour(Color colour){
+            if (_material == null) return;
             _material.color = colour;
+        }
+
+        /// <summary>
+        /// Specifies: material property colour
+        /// </summary>
+        public void SetColour(Color colour, string property){
+            if (_material == null) return;
+            _material.SetColor(property, colour);
         }
     }
 }

@@ -2,43 +2,20 @@
 // TO DO LIST
 ===============================================================
 
-# Continue fixing the UIElement
-- Cash the transform to increase performance a little bit
+# Fix so the grid points are added in the correct order
+  Maybe it has something to do with the scaler so it inverts
+  the point
 
 
-# Continue fixing the UIGrid
-- Add a button underneath the grid that allow me to spawn
-  the grid tiles in edit mode
-  
-  Also add a delete button that goes through and compares child
-  objects to the prefab? If they are the same then remove it
-  Must also delete the old ones when updating the grid
-  
-- Remove spawn on start and only have it in edit mode
-  But keep the BuildGrid method public so it can be called
-  from script
+# Create my own font SDF atlas in Substance Designer
+  Create a scriptable object that finds the rect of each letter
+  or sentence from the alpha channel of the font atlas?
+  and stores that in a dictionary<string, rect>
 
 
-# Continue on the UICanvas script
-- Specify default screen resolution and slot scale/size
-  Rescale default slot scale/size based on current screen
-  resolution
-  
-- Check every frame for screen resolution change
-  and if it does tell all child objects what scale multiplier
-  they should have?
-
-
-# Create a UIKeyboardKey class
-  Include a public string getter for the letter
- 
-
-# Create a UIKeyboard class that fetches all UIKeyboardKey scripts in children
-  and place these in a dictionary based on its letter
-
-
-# In UIKeyboard get the anykey event and then get the key from that
-  Use the key to trigger the KeyboardKey
+# Make sure that the screen resolution check works
+  Screen.currentResolution might not work in game window?
+  Might have to use Screen.Width and Screen.Height instead?
 
 
 # Read the txt file of words and put each word in a list?
@@ -68,23 +45,28 @@
 // BUGS AND IMPROVEMENTS
 ===============================================================
 
-# Add glow effects etc to the shaders so it looks more scifi!
-  Add a white scifi panel background or something?
-  Use the SDF and smooth step to create inner and outer glow
+# Continue fixing the UIGrid
+- Add a button underneath the grid that allow me to spawn
+  the grid tiles in edit mode
   
-
-# Find out why the input font works with one font but not
-  with the other ones. See if I can solve how to fix it!
+  Also add a delete button that goes through and compares child
+  objects to the prefab? If they are the same then remove it
+  Must also delete the old ones when updating the grid
   
-  Try removing padding from the rect and see if that
-  creates a more favourable outcome on other fonts
-  
-  The lookup index is not correct on the official TMP fonts
-  but works with the ones I've made. Test with more fonts
-  and see what the problem is!
-  
+- Remove spawn on start and only have it in edit mode
+  But keep the BuildGrid method public so it can be called
+  from script
+    
   
 # Fix so the shaders/materials have higher render queue?
   Check if there is a UI render queue already that I can use?
   Else have UIObject manually set the render queue on Awake?
   https://forum.unity.com/threads/how-to-change-the-render-queue.682036/#post-7614322
+
+
+
+
+
+
+
+

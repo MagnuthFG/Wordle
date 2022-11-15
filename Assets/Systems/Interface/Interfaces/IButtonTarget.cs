@@ -1,4 +1,4 @@
-namespace Wordl.Interface {
+namespace Magnuth.Interface {
 	public interface IButtonTarget
 	{
 		public void OnClicked(params object[] args);

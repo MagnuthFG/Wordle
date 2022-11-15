@@ -217,5 +217,7 @@ MonoBehaviour:
   _size: {x: 1, y: 1, z: 1}
   _sizing: 0
   _colour: {r: 1, g: 1, b: 1, a: 1}
+  _highlighted: {r: 1, g: 0.7519685, b: 0.25, a: 1}
+  _pressed: {r: 0, g: 0.83333325, b: 1, a: 1}
   _target: {fileID: 0}
   _character: {fileID: 8523866258004127546}

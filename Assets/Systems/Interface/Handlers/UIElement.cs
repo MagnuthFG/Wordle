@@ -2,7 +2,7 @@ using SF = UnityEngine.SerializeField;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Wordl.Interface 
+namespace Magnuth.Interface 
 {
     [DisallowMultipleComponent]
     public abstract class UIElement : MonoBehaviour
@@ -12,10 +12,10 @@ namespace Wordl.Interface
         [SF] protected Vector3 _size   = Vector3.one;
         [SF] protected Sizing  _sizing = Sizing.Absolute;
 
-        protected float   _resScaler  = 1f;
-        protected Vector3 _sizeScaler = Vector3.one;
-        protected List<UIElement> _elements = new();
+        protected float   _resScaler   = 1f;
+        protected Vector3 _sizeScaler  = Vector3.one;
         protected Transform _transform = null;
+        protected List<UIElement> _elements = new();
 
 // INITIALISATION
 
