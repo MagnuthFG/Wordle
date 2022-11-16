@@ -1,9 +1,11 @@
 using SF = UnityEngine.SerializeField;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Magnuth.Interface
 {
+    [CreateAssetMenu(fileName = "Font Setup",
+     menuName = "Magnuth/Interface/Font Setup")]
     public class FontSetup : ScriptableObject
     {
         [SF] private Texture2D _atlas = null;      

@@ -1,41 +1,40 @@
 ===============================================================
 // TO DO LIST
 ===============================================================
-
-# Fix so the grid points are added in the correct order
-  Maybe it has something to do with the scaler so it inverts
-  the point
-
-
 # Create my own font SDF atlas in Substance Designer
   Create a scriptable object that finds the rect of each letter
   or sentence from the alpha channel of the font atlas?
   and stores that in a dictionary<string, rect>
 
+  Just type in columns and rows for how many characters there are
+  Have a button that I can click to generate the dictionary data
+  Disregards all tiles that are completely black
+  
+  Display each character using this method and then a field for
+  the character's lookup ID
+  https://forum.unity.com/threads/drawing-a-sprite-in-editor-window.419199/#post-3059891
+  
 
-# Make sure that the screen resolution check works
-  Screen.currentResolution might not work in game window?
-  Might have to use Screen.Width and Screen.Height instead?
+# Continue adding features to WordHandler
+- Read the txt file of words and put each word in a list
 
-
-# Read the txt file of words and put each word in a list?
-
-
-# Use DateTime.Current.Date as the seed for the word of the day
+- Use DateTime.Current.Date as the seed for the word of the day
   Then use System.Random(seed) to pick the word in the list
  
- 
-# Create a word comparing method
+- Create a word comparing method
   First loop over chars in randomly selected word string
   Then loop over chars in player written string
   
   Check if the char in written string is same the as the
   the char in the word string. Then check if they loops
-  have the same index. If they have, colour slot green,
-  else colour it yellow and if nothing is right then red
+  have the same index
   
+- Colour the keyboard keys and and slots based on the guess
+  If they char has the same index, colour the slot and key
+  backgrounds green, else colour it yellow and if nothing is
+  right then red or dark grey
   
-# Fix so the submitted words are saved to a encrypted json file
+- Fix so the submitted words are saved to a encrypted json file?
   and is only reset on a new date. Store the date and words in
   a struct which is then converted to json
 
@@ -44,6 +43,15 @@
 ===============================================================
 // BUGS AND IMPROVEMENTS
 ===============================================================
+
+# Continue improving the UICanvas
+- Fix so the canvas scales based on resolution
+  That will fix so the backdrop scales with the screen
+
+- Make sure that the screen resolution check works
+  Screen.currentResolution might not work in game window?
+  Might have to use Screen.Width and Screen.Height instead?
+  
 
 # Continue fixing the UIGrid
 - Add a button underneath the grid that allow me to spawn
@@ -58,7 +66,11 @@
   from script
     
   
-# Fix so the shaders/materials have higher render queue?
+# Continue improving the materials
+- Fix so that I can set colour and character without creating
+  material instances. Current setup adds too many draw calls!
+
+- Fix so the shaders/materials have higher render queue?
   Check if there is a UI render queue already that I can use?
   Else have UIObject manually set the render queue on Awake?
   https://forum.unity.com/threads/how-to-change-the-render-queue.682036/#post-7614322

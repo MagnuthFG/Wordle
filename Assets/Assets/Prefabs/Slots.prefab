@@ -52,7 +52,7 @@ MonoBehaviour:
   _spacing: {x: -0.05, y: -0.165, z: 0}
   _evenColumnOffset: {x: 0, y: 0, z: 0}
   _unevenColumnOffset: {x: 0, y: 0, z: 0}
-  _evenRowOffset: {x: 0.435, y: 0, z: 0}
+  _evenRowOffset: {x: 0.425, y: 0, z: 0}
   _unevenRowOffset: {x: 0, y: 0, z: 0}
   _widthHeightDepth: {x: 0.9, y: 0.9, z: 1}
   _prefab: {fileID: 6368819617366755843, guid: f09b2899f5dd6cd459d850d15df02a96, type: 3}

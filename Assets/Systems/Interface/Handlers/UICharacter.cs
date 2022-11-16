@@ -29,10 +29,13 @@ namespace Magnuth.Interface
         /// Specifies: displayed character
         /// </summary>
         public void SetCharater(string input){
-            if (string.IsNullOrEmpty(input)) return;
+            if (input == null) return;
+            _character = input.Trim();
 
-            _character = input;
-            SetCharater(input[0]);
+            if (_character.Length > 0){
+                SetCharater(_character[0]);
+            
+            } else ResetCharacter();
         }
 
         /// <summary>
@@ -56,6 +59,13 @@ namespace Magnuth.Interface
             );
 
             _material.SetVector("_Rect", data);
+        }
+
+        /// <summary>
+        /// Specifies: empty character
+        /// </summary>
+        private void ResetCharacter(){
+            _material.SetVector("_Rect", Vector4.zero);
         }
 
 // INSPECTOR

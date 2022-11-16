@@ -17,21 +17,26 @@ namespace Magnuth.Interface
         [SF] private Vector3 _widthHeightDepth = Vector3.one;
         [SF] private GameObject _prefab = null;
 
-        private Queue<UIKey> _pressed = new();
-        private System.IDisposable _listener = null;
+        private Queue<UIKey>         _pressed     = new(7);
         private Subscription<Action> _subscribers = new();
+        private System.IDisposable   _listener    = null;
 
         private Dictionary<string, UIKey> _keys = new(){
             { "Q", null }, { "W", null }, { "E", null }, { "R", null }, 
             { "T", null }, { "Y", null }, { "U", null }, { "I", null }, 
             { "O", null }, { "P", null }, { "A", null }, { "S", null }, 
             { "D", null }, { "F", null }, { "G", null }, { "H", null }, 
-            { "J", null }, { "K", null }, { "L", null }, { "+", null },
+            { "J", null }, { "K", null }, { "L", null }, { "-", null },
             { "Z", null }, { "X", null }, { "C", null }, { "V", null }, 
-            { "B", null }, { "N", null }, { "M", null }, { "-", null },
+            { "B", null }, { "N", null }, { "M", null }, { "+", null },
         };
 
 // INITIALISATION
+
+        /// <summary>
+        /// Initialises: instantiates keys
+        /// </summary>
+        private void Start() => BuildKeyboard();
 
         /// <summary>
         /// Initialises: input callback
@@ -49,12 +54,11 @@ namespace Magnuth.Interface
             _listener.Dispose();
         }
 
-        /// <summary>
-        /// Initialises: instantiates keys
-        /// </summary>
-        private void Start() => BuildKeyboard();
-
 // INPUT CALLBACK
+
+        private void OnAnyKeyInput(InputControl ctrl){
+            //ctrl
+        }
 
         /// <summary>
         /// Event: on input pressed

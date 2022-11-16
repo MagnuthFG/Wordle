@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Magnuth.Interface
 {
-	[AddComponentMenu("Magnuth/Interface/UI Button")]
-	public class UIButton : UIObject, 
+	[AddComponentMenu("Magnuth/Interface/UI Button"), 
+     RequireComponent(typeof(BoxCollider))]
+	public class UIButton : UIObject,
 	IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 	{
 		[SF] protected Color _highlighted = Color.white;
