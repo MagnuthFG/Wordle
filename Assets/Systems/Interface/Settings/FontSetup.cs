@@ -1,3 +1,4 @@
+using HIDE = UnityEngine.HideInInspector;
 using SF = UnityEngine.SerializeField;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,27 +9,34 @@ namespace Magnuth.Interface
      menuName = "Magnuth/Interface/Font Setup")]
     public class FontSetup : ScriptableObject
     {
-        [SF] private Texture2D _atlas = null;      
-        private bool _initialised = false;
+        [Header("Texture")]
+        [SF] private Texture2D _atlas = null;
+        [SF] private Vector2Int _columnsRows = Vector2Int.zero;
 
-        // Must be able to include:
-        // - Find char rects on atlas using alpha channel?
-        //   Generate this automatically when the atlas is assigned
-        //
-        // - Each char must be drawn in the inspector
-        //   Create thumbnails for each char seems exessive?
-        //
-        // - Set char ID for each drawn font character
-        //   User must be able to specify this via inspector
-        //
-        // - Get the rect from character ID or font character
-        private Dictionary<string, Rect> _characters = new(); // Replace with uDictionary
+        private List<string> _fontIDs = new();
+        private List<Rect> _fontRects = new();
+        
+// HANDLING
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Build(){
+            var size = _atlas.texelSize;
+            var area = size / _columnsRows;
+
+            for (int y = 0; y < _columnsRows.y; y++){
+                for (int x = 0; x < _columnsRows.x; x++){
+
+                }
+            }
+        }
 
         /// <summary>
         /// Returns: 
         /// </summary>
-        public Rect GetCharacter(string character){
+        public Rect GetRect(string character){
+
             return default;
         }
     }

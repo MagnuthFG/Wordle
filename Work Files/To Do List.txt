@@ -1,11 +1,8 @@
 ===============================================================
 // TO DO LIST
 ===============================================================
-# Create my own font SDF atlas in Substance Designer
-  Create a scriptable object that finds the rect of each letter
-  or sentence from the alpha channel of the font atlas?
-  and stores that in a dictionary<string, rect>
-
+# Create a scriptable object that finds the rect of each letter
+  
   Just type in columns and rows for how many characters there are
   Have a button that I can click to generate the dictionary data
   Disregards all tiles that are completely black
@@ -39,6 +36,15 @@
   a struct which is then converted to json
 
 
+# Add the background 
+- Create it via the shader and use UV coordinates for the
+  "SDF" gradient and then the same masking approach as the
+  other shaders
+
+- Generate a square pattern or something so its more detailed?
+  Use Fraq with world position and feed into the Box SDF or
+  something?
+  
 
 ===============================================================
 // BUGS AND IMPROVEMENTS
@@ -69,14 +75,17 @@
 # Continue improving the materials
 - Fix so that I can set colour and character without creating
   material instances. Current setup adds too many draw calls!
-
+  https://docs.unity3d.com/560/Documentation/Manual/GPUInstancing.html
+ 
 - Fix so the shaders/materials have higher render queue?
   Check if there is a UI render queue already that I can use?
   Else have UIObject manually set the render queue on Awake?
   https://forum.unity.com/threads/how-to-change-the-render-queue.682036/#post-7614322
 
 
-
+# Continue improving the WordHandler
+- Add glow/shake animations to the slots when a character
+  is added to it? Maybe when it changes compare colour too?
 
 
 
