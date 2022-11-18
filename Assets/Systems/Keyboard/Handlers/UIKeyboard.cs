@@ -56,10 +56,6 @@ namespace Magnuth.Interface
 
 // INPUT CALLBACK
 
-        private void OnAnyKeyInput(InputControl ctrl){
-            //ctrl
-        }
-
         /// <summary>
         /// Event: on input pressed
         /// </summary>
@@ -106,16 +102,15 @@ namespace Magnuth.Interface
             var scaler = GetChildScaler();
 
             int count  = 10;
+            var half   = 5f;
             int column = 0;
             int row    = 0;
 
-            var half  = count * 0.5f;
+            var keys  = new List<string>(_keys.Keys);
             var xSize = (_widthHeightDepth.x + _spacing.x);
             var ySize = (_widthHeightDepth.y + _spacing.y);
             var point = _centre;
-
-            var keys = new List<string>(_keys.Keys);
-
+   
             for (int i = 0; i < keys.Count; i++){
                 point.x = _centre.x - (xSize * half) + (xSize * column);
                 point.y = _centre.y - (ySize * row);
@@ -135,7 +130,7 @@ namespace Magnuth.Interface
                     column = 0;
                     row   += 1;
                     count  = 9;
-                    half   = count * 0.5f;
+                    half   = 4.5f;
                 }
             }
         }

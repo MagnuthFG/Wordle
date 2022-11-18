@@ -39,14 +39,15 @@ namespace Magnuth.Interface
             var scaler = GetChildScaler();
             var half   = _count / 2;
 
-            var xSize = (_widthHeightDepth.x + _spacing.x);
-            var ySize = (_widthHeightDepth.y + _spacing.y);
-            var point = _centre;
+            var xSize  = (_widthHeightDepth.x + _spacing.x);
+            var ySize  = (_widthHeightDepth.y + _spacing.y);
+            var yShift = _count.y % 2 == 0 ? ySize * 0.5f : ySize;
+            var point  = _centre;
 
-            for (int y = -half.y; y < half.y + _count.y % 2; y++){
+            for (int y = half.y + _count.y % 2; y > -half.y; y--){
                 for (int x = -half.x; x < half.x + _count.x % 2; x++){
-                    point.x = _centre.x + xSize * -x;
-                    point.y = _centre.y + ySize * y;
+                    point.x  = _centre.x + (xSize * x);
+                    point.y  = _centre.y + (ySize * y) - yShift;
 
                     bool evenRow = y % 2 == 0;
                     point.x += evenRow ? _evenRowOffset.x : _unevenRowOffset.x;

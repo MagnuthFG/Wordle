@@ -27,7 +27,7 @@ namespace Wordl
             _unfilled = new Stack<UISlot>();
             _filled   = new Stack<UISlot>();
 
-            for (int i = 0; i < slots.Length; i++){
+            for (int i = slots.Length - 1; i >= 0; i--){
                 _unfilled.Push(slots[i]);
             }
         }

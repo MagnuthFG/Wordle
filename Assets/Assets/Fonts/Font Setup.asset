@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Font Setup
   m_EditorClassIdentifier: 
   _atlas: {fileID: 2800000, guid: 2b21b5f9e3ae4b04895ea4f15e335468, type: 3}
+  _columnsRows: {x: 8, y: 8}
