@@ -4,6 +4,8 @@ using UnityEngine.InputSystem.Utilities;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System.Collections.Generic;
+using static UnityEngine.UI.Image;
+using UnityEngine.UIElements;
 
 namespace Magnuth.Interface
 {
@@ -22,13 +24,13 @@ namespace Magnuth.Interface
         private System.IDisposable   _listener    = null;
 
         private Dictionary<string, UIKey> _keys = new(){
-            { "Q", null }, { "W", null }, { "E", null }, { "R", null }, 
-            { "T", null }, { "Y", null }, { "U", null }, { "I", null }, 
-            { "O", null }, { "P", null }, { "A", null }, { "S", null }, 
-            { "D", null }, { "F", null }, { "G", null }, { "H", null }, 
-            { "J", null }, { "K", null }, { "L", null }, { "-", null },
-            { "Z", null }, { "X", null }, { "C", null }, { "V", null }, 
-            { "B", null }, { "N", null }, { "M", null }, { "+", null },
+            { "q", null }, { "w", null }, { "e", null }, { "r", null }, 
+            { "t", null }, { "y", null }, { "u", null }, { "i", null }, 
+            { "o", null }, { "p", null }, { "a", null }, { "s", null }, 
+            { "d", null }, { "f", null }, { "g", null }, { "h", null }, 
+            { "j", null }, { "k", null }, { "l", null }, { "-", null },
+            { "z", null }, { "x", null }, { "c", null }, { "v", null }, 
+            { "b", null }, { "n", null }, { "m", null }, { "+", null },
         };
 
 // INITIALISATION
@@ -43,7 +45,7 @@ namespace Magnuth.Interface
         /// </summary>
         private void OnEnable(){
             _listener = InputSystem.onAnyButtonPress.Call(
-                ctrl => OnAnyKeyInput(ctrl.name.ToUpper())
+                ctrl => OnAnyKeyInput(ctrl.name)
             );
         }
 
@@ -85,10 +87,10 @@ namespace Magnuth.Interface
         /// </summary>
         private string ProcessInput(string input){
             switch (input){
-                case "ENTER"      : return "+";
-                case "NUMPADPLUS" : return "+";
-                case "BACKSPACE"  : return "-";
-                case "NUMPADMINUS": return "-";
+                case "enter"      : return "+";
+                case "numpadPlus" : return "+";
+                case "backspace"  : return "-";
+                case "numpadMinus": return "-";
                 default: return input;
             }
         }
@@ -99,7 +101,8 @@ namespace Magnuth.Interface
         /// Instantiates: keyboard keys
         /// </summary>
         public void BuildKeyboard(){
-            var scaler = GetChildScaler();
+            var origin = _transform.localPosition;
+            var scaler = GetScaler();
 
             int count  = 10;
             var half   = 5f;
@@ -124,7 +127,11 @@ namespace Magnuth.Interface
 
                 ui.SetKey(key);
                 ui.SetTarget(this.gameObject);
-                ui.Initialise(point, _widthHeightDepth, scaler, _resScaler);
+
+                ui.Initialise(
+                    point, origin, 
+                    _widthHeightDepth, scaler
+                );
 
                 if (++column >= count){
                     column = 0;

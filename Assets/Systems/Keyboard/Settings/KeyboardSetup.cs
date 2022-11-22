@@ -5,10 +5,10 @@ namespace Magnuth.Keyboard
 {
     public class KeyboardSetup : ScriptableObject
     {
-        public struct Layout {
-            public string[] Characters;
-        }
+        //public struct Layout {
+        //    public string[] Characters;
+        //}
 
-        [SF] private Layout[] _characters = null;
+        //[SF] private Layout[] _characters = null;
     }
 }

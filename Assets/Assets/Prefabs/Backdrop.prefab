@@ -99,3 +99,4 @@ MonoBehaviour:
   _point: {x: 0, y: 0, z: 0.1}
   _size: {x: 19, y: 11, z: 1}
   _sizing: 1
+  _ressing: 1

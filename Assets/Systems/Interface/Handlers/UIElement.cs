@@ -2,25 +2,23 @@ using SF = UnityEngine.SerializeField;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Magnuth.Interface 
+namespace Magnuth.Interface
 {
     [DisallowMultipleComponent]
     public abstract class UIElement : MonoBehaviour
     {
         [Header("Transform")]
-        [SF] protected Vector3 _point  = Vector3.zero;
-        [SF] protected Vector3 _size   = Vector3.one;
-        [SF] protected Sizing  _sizing = Sizing.Absolute;
+        [SF] protected Vector3 _point   = Vector3.zero;
+        [SF] protected Vector3 _size    = Vector3.one;
+        [SF] protected Sizing  _sizing  = Sizing.Absolute;
 
-        protected float   _resScaler   = 1f;
-        protected Vector3 _sizeScaler  = Vector3.one;
         protected Transform _transform = null;
         protected List<UIElement> _elements = new();
 
 // INITIALISATION
 
         /// <summary>
-        /// Initialises: element size and position
+        /// Initialises the element size and position
         /// </summary>
         protected virtual void Awake(){
             _transform = transform;
@@ -29,158 +27,137 @@ namespace Magnuth.Interface
         }
 
         /// <summary>
-        /// Initialises: element transform and scalers
+        /// Initialises the element transform
         /// </summary>
-        /// <param name="position">Local position</param>
-        /// <param name="size">Local scale</param>
-        /// <param name="scaler">Recursive transform size multiplier</param>
-        /// <param name="resolution">Min resolution percentage multiplier</param>
-        public void Initialise(Vector3 position, Vector3 size, Vector3 scaler, float resolution){
-            _point      = position;
-            _size       = size;
-            _resScaler  = resolution;
-            _sizeScaler = scaler;
+        /// <param name="position">Desired local position</param>
+        /// <param name="origin">Parent local position</param>
+        /// <param name="size">Desired local scale</param>
+        /// <param name="scaler">Parent scaler</param>
+        public void Initialise(Vector3 position, Vector3 origin, Vector3 size, Vector3 scaler){
+            _transform.localPosition = position;
+            _transform.localScale = size;
 
-            // Must set unscaled position first
-            _transform.localPosition = _point;
-            _transform.localScale    = _size;
+            _point = position;
+            _size = size;
 
-            // Then set scaled position
-            SetTransform(_point, _size);
+            Rescale(scaler);
+            Reposition(origin);
         }
 
 // TRANSFORM
 
         /// <summary>
-        /// Sets: element position
+        /// Changes the element transform
         /// </summary>
-        /// <param name="position">Local position</param>
-        public void SetPosition(Vector3 position){
+        /// <param name="position">Desired local position</param>
+        /// <param name="origin">Parent local position</param>
+        /// <param name="size">Desired local scale</param>
+        /// <param name="scaler">Parent scaler</param>
+        public void SetTransform(Vector3 position, Vector3 origin, Vector3 size, Vector3 scaler){
+            _transform.localPosition = position;
+            _transform.localScale = size;
+
             _point = position;
-            _transform.localPosition = _point;
+            _size = size;
+
+            Rescale(scaler);
+            Reposition(origin);
+
+            // NotifyTransform -> Retransform
+        }
+
+
+        /// <summary>
+        /// Changes the current position
+        /// </summary>
+        /// <param name="position">Desired local position</param>
+        /// <param name="origin">Parent local position</param>
+        public void SetPosition(Vector3 position, Vector3 origin){
+            _transform.localPosition = position;
+            _point = position;
+
+            Reposition(origin);
+            NotifyPosition();
         }
 
         /// <summary>
-        /// Sets: element size
+        /// Repositions element based on parent position
         /// </summary>
-        /// <param name="size">Local scale</param>
-        public void SetSize(Vector3 size){
-            _size = Rescale(size);
-            _transform.localScale = _size;
+        /// <param name="scaler">Parent local position</param>
+        public void Reposition(Vector3 origin){
+            // If positioning is relative return
+            // if fixed then move in the other direction for length
 
-            UpdateElements();
+            
+        }
+
+
+        /// <summary>
+        /// Changes the current size
+        /// </summary>
+        /// <param name="size">Desired local scale</param>
+        /// <param name="scaler">Parent scaler</param>
+        public void SetSize(Vector3 size, Vector3 scaler){
+            _transform.localScale = size;
+            _size = size;
+
+            Rescale(scaler);
+            NotifySize();
         }
 
         /// <summary>
-        /// Sets: element position and size
+        /// Rescales current size based on parent scaler
         /// </summary>
-        /// <param name="position">Local position</param>
-        /// <param name="size">Local scale</param>
-        public void SetTransform(Vector3 position, Vector3 size){
-            _point = Rescale(position);
-            _size  = Rescale(size);
-
-            _transform.localPosition = _point;
-            _transform.localScale    = _size;
-
-            UpdateElements();
+        /// <param name="scaler">Parent scaler value</param>
+        public void Rescale(Vector3 scaler){
+            if (_sizing == Sizing.Relative) return;
+                // notify size
+            // else
+            _transform.localScale = new Vector3(
+                _size.x / scaler.x,
+                _size.y / scaler.y,
+                _size.z / scaler.z
+            );
         }
 
+
         /// <summary>
-        /// Returns: value rescaled by resolution
-        /// <br>Independent of parent size</br>
+        /// Returns current scaler value
         /// </summary>
-        /// <param name="value">Default value</param>
-        private Vector3 Rescale(Vector3 value){
-            if (_sizing == Sizing.Relative)
-                return value;
+        protected Vector3 GetScaler(){
+            var size = transform.localScale;
 
-            value.x = value.x * _resScaler / _sizeScaler.x;
-            value.y = value.y * _resScaler / _sizeScaler.y;
-            value.z = value.z * _resScaler / _sizeScaler.z;
-
-            return value;
+            return new Vector3(
+                size.x / _size.x,
+                size.y / _size.y,
+                size.y / _size.z
+            );
         }
 
-// SCALING
+// NOTIFICATION
 
         /// <summary>
-        /// Initialises: transform and resolution scalers
+        /// Notifies child elements of new position
         /// </summary>
-        /// <param name="scaler">Recursive transform size multiplier</param>
-        /// <param name="resolution">Min resolution percentage multiplier</param>
-        public void SetScalerAndRes(Vector3 scaler, float resolution){
-            _resScaler = resolution;
-            _sizeScaler = scaler;
-
-            _point = Rescale(_point);
-            _size  = Rescale(_size);
-
-            _transform.localPosition = _point;
-            _transform.localScale    = _size;
-
-            UpdateElements();
-        }
-
-        /// <summary>
-        /// Specifies: Min resolution percentage scaler
-        /// </summary>
-        /// <param name="resolution">Min resolution percentage multiplier</param>
-        public void SetResolution(float resolution){
-            _resScaler = resolution;
-
-            _size = Rescale(_size);
-            _transform.localScale = _size;
-
-            UpdateElements();
-        }
-
-        /// <summary>
-        /// Specifies: Recursive transform scaler
-        /// </summary>
-        /// <param name="scaler">Recursive transform size multiplier</param>
-        public void SetScaler(Vector3 scaler){
-            _sizeScaler = scaler;
-
-            _size = Rescale(_size);
-            _transform.localScale = _size;
-
-            UpdateElements();
-        }
-
-        /// <summary>
-        /// Returns: Child transform scaler
-        /// </summary>
-        public Vector3 GetChildScaler(){
-            var scaler = _sizeScaler;
-
-            scaler.x = _size.x <= _sizeScaler.x ?
-                _size.x * _sizeScaler.x :
-                _size.x / _sizeScaler.x;
-
-            scaler.y = _size.y <= _sizeScaler.y ?
-                _size.y * _sizeScaler.y :
-                _size.y / _sizeScaler.y;
-
-            return scaler;
-        }
-
-// UPDATING
-
-        /// <summary>
-        /// Updates child element scalers
-        /// </summary>
-        protected void UpdateElements(){
+        protected void NotifyPosition(){
             if (!HasElements()) return;
+            var point = transform.localPosition;
 
-            var sizeScaler = GetChildScaler();
-
-            for (int i = 0; i < _elements.Count; i++){
-                _elements[i].SetScalerAndRes(
-                    sizeScaler, _resScaler
-                );
-            }
+            for (int i = 0; i < _elements.Count; i++)
+                _elements[i].Reposition(point);
         }
+
+        /// <summary>
+        /// Notifies child element of new size
+        /// </summary>
+        protected void NotifySize(){
+            if (!HasElements()) return;
+            var scaler = GetScaler();
+
+            for (int i = 0; i < _elements.Count; i++)
+                _elements[i].Rescale(scaler);
+        }
+
 
         /// <summary>
         /// Returns: If this element contains child elements

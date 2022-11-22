@@ -1,19 +1,19 @@
 ===============================================================
 // TO DO LIST
 ===============================================================
-# Create a scriptable object that finds the rect of each letter
-  
-  Just type in columns and rows for how many characters there are
-  Have a button that I can click to generate the dictionary data
-  Disregards all tiles that are completely black
-  
-  Display each character using this method and then a field for
-  the character's lookup ID
-  https://forum.unity.com/threads/drawing-a-sprite-in-editor-window.419199/#post-3059891
-  
+# Continue improving the UIElement
+- Fix so that SetTransform notifies child transforms
+
+- Fix so that it only notifies children on rescale
+  if sizing is set to relative?
+
+- Add enum Positioning fixed relative and add it to
+  transform, underneath position. Will have to create
+  a Reposition method and use that rather then Rescale
+
 
 # Continue adding features to WordHandler
-- Read the txt file of words and put each word in a list
+- Read the text file of words and put each word in a list
 
 - Use DateTime.Current.Date as the seed for the word of the day
   Then use System.Random(seed) to pick the word in the list
@@ -36,6 +36,21 @@
   a struct which is then converted to json
 
 
+===============================================================
+// BUGS AND IMPROVEMENTS
+===============================================================
+# Continue adding features to FontSetup
+- Improve the look of the inspector so the properties
+  are next to the image. Maybe have them on a single line?
+  Have the char be narrow so it only fits one character?
+
+
+# Continue improving the UIElement
+- Fix so that when changing the size and position in the
+  inspector, it will adapt to parent scales and update its
+  children as well, based on sizing
+
+
 # Add the background 
 - Create it via the shader and use UV coordinates for the
   "SDF" gradient and then the same masking approach as the
@@ -43,22 +58,10 @@
 
 - Generate a square pattern or something so its more detailed?
   Use Fraq with world position and feed into the Box SDF or
-  something?
+  something? Boxes outside the boarder and hexagons inside?
+  Add a separate colour for each shape outline?
   
-
-===============================================================
-// BUGS AND IMPROVEMENTS
-===============================================================
-
-# Continue improving the UICanvas
-- Fix so the canvas scales based on resolution
-  That will fix so the backdrop scales with the screen
-
-- Make sure that the screen resolution check works
-  Screen.currentResolution might not work in game window?
-  Might have to use Screen.Width and Screen.Height instead?
   
-
 # Continue fixing the UIGrid
 - Add a button underneath the grid that allow me to spawn
   the grid tiles in edit mode

@@ -1,4 +1,3 @@
-using HIDE = UnityEngine.HideInInspector;
 using SF = UnityEngine.SerializeField;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,68 +8,117 @@ namespace Magnuth.Interface
      menuName = "Magnuth/Interface/Font Setup")]
     public class FontSetup : ScriptableObject
     {
-        [Header("Texture")]
-        [SF] private Texture2D  _atlas = null;
-        [SF] private Vector2Int _columnsRows = Vector2Int.zero;
+        [System.Serializable]
+        public class CharInfo {
+            public char ID = default;
+            public Vector2 Coord = Vector2.zero;
 
-        [SF] private List<string> _fontIDs   = new();
-        [SF] private List<Rect>   _fontRects = new();
-        
-// HANDLING
+            public CharInfo(char ID, Vector2 coord) {
+                this.Coord = coord;
+                this.ID = ID;
+            }
+        }
+
+        [SF] private Texture2D _atlas = null;
+        [SF] private Vector2Int _tiles = new Vector2Int(8, 8);
+
+        [SF] private Vector2 _size = Vector2.zero;
+        [SF] private List<CharInfo> _characters = new();
+
+// INITIALISATION
 
         /// <summary>
         /// Creates the font data
         /// </summary>
-        [ContextMenu("Build")]
-        public void Build(){
-            var width  = _atlas.width  / _columnsRows.x;
-            var height = _atlas.height / _columnsRows.y;
-            var rect   = new Rect(0, 0, width, height);
+        public void CreateCharacters(){
+            var point = Vector2.zero;
+            var blank = ' ';
 
-            for (int y = 0; y < _columnsRows.y; y++){
-                for (int x = 0; x < _columnsRows.x; x++){
-                    rect.x = width  * x;
-                    rect.y = height * y;
-                    _fontRects.Add(rect);
+            _size = GetCharacterSize();
+            _characters.Clear();
 
-                    var temp = (y * _columnsRows.x) + x;
-                    _fontIDs.Add(temp.ToString());
-                }
+            for (int y = 0; y < _tiles.y; y++){
+            for (int x = 0; x < _tiles.x; x++){
+                point.x = _size.x * x;
+                point.y = _size.y * y;
+
+                if (!ValidCharacter(point, _size)) 
+                    continue;
+
+                _characters.Add(
+                    new CharInfo(blank, point)
+                );
+            }}
+        }
+
+        /// <summary>
+        /// Returns true if the tile contains a character
+        /// </summary>
+        private bool ValidCharacter(Vector2 point, Vector2 size){
+            var width  = _atlas.width;
+            var height = _atlas.height;
+
+            var pixels = _atlas.GetPixels(
+                (int)(width  * point.x),
+                (int)(height * point.y),
+                (int)(width  * size.x),  
+                (int)(height * size.y)
+            );
+
+            for (int i = 0; i < pixels.Length; i++){
+                if (pixels[i].r > 0.5f) return true;     
             }
+
+            return false;
         }
 
         /// <summary>
-        /// Adds a new character rect
+        /// Returns the character tile size, range 0 to 1
         /// </summary>
-        public void AddCharacter(string character, Rect rect){
-            var index = _fontIDs.IndexOf(character);
-            
-            if (index < 0){
-                _fontIDs.Add(character);
-                _fontRects.Add(rect);
-            
-            } else _fontRects[index] = rect;
+        private Vector2 GetCharacterSize(){
+            var width  = _atlas.width;
+            var height = _atlas.height;
+
+            return new Vector2(
+                Mathf.InverseLerp(0, width, width / _tiles.x),
+                Mathf.InverseLerp(0, height, height / _tiles.y)
+            );
+        }
+
+// HANDLING
+
+        /// <summary>
+        /// Returns the character rect
+        /// </summary>
+        public Rect GetRect(char character){
+            var info = _characters.Find(
+                c => c.ID == character
+            );
+
+            if (info == null)
+                return Rect.zero;
+
+            return new Rect(
+                info.Coord.x, info.Coord.y,
+                _size.x, _size.y
+            );
         }
 
         /// <summary>
-        /// Removes the character rect
+        /// Returns the character vector
         /// </summary>
-        public void RemoveCharacter(string character){
-            var index = _fontIDs.IndexOf(character);
-            if (index < 0) return;
+        public Vector4 GetVector(char character){
+            var info = _characters.Find(
+                c => c.ID == character
+            );
 
-            _fontIDs.RemoveAt(index);
-            _fontRects.RemoveAt(index);
-        }
+            if (info == null) 
+                return Vector4.zero;
 
-        /// <summary>
-        /// Returns: character rect on font atlas
-        /// </summary>
-        public Rect GetRect(string character){
-            var index = _fontIDs.IndexOf(character);
-
-            if (index < 0) return default;
-            return _fontRects[index];
+            return new Vector4(
+                info.Coord.x, info.Coord.y, 
+                _size.x, _size.y
+            );
         }
     }
 }

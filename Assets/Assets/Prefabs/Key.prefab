@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8523866258004127542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8523866258442836569}
@@ -97,11 +97,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _point: {x: 0, y: 0, z: -0.1}
-  _size: {x: 0.35, y: 0.35, z: 1}
+  _size: {x: 0.5, y: 0.5, z: 1}
   _sizing: 1
+  _scaling: 1
   _colour: {r: 1, g: 1, b: 1, a: 1}
   _character: 
-  _font: {fileID: 11400000, guid: 24be67d7a92be1d4d95712e0ecfad289, type: 2}
+  _font: {fileID: 11400000, guid: a9625a8c98ba82e46baec406a206eb59, type: 2}
 --- !u!1 &8523866258442836565
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +217,7 @@ MonoBehaviour:
   _point: {x: 0, y: 0, z: 0}
   _size: {x: 1, y: 1, z: 1}
   _sizing: 0
+  _scaling: 1
   _colour: {r: 1, g: 1, b: 1, a: 1}
   _highlighted: {r: 1, g: 0.7519685, b: 0.25, a: 1}
   _pressed: {r: 0, g: 0.83333325, b: 1, a: 1}

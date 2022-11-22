@@ -1,6 +1,5 @@
 using SF = UnityEngine.SerializeField;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Magnuth.Interface 
 {
@@ -8,42 +7,42 @@ namespace Magnuth.Interface
     public sealed class UICanvas : UIElement
     {
         [Header("Canvas")]
+        [SF] private Camera _uiCamera = null;
         [SF] private Vector2Int _defResolution = new Vector2Int(1920, 1080);
 
-        private Resolution _resolution = default;
+        private Vector2 _current    = default;
+        private Vector2 _resolution = default;
         
 // INITIALISATION
 
         /// <summary>
-        /// Initialises: Canvas elements
+        /// Initialises: canvas elements
         /// </summary>
         protected override void Awake(){
-            _resolution = Screen.currentResolution;
-            _resScaler  = GetResolution();
-            _sizeScaler = GetScaler();
+            base.Awake();
+            UpdatedResolution();
+            ChangeSize();
+        }
 
-            UpdateElements();
+// SETTINGS
+
+        /// <summary>
+        /// Changes the current canvas size
+        /// </summary>
+        private void ChangeSize(){
+            transform.localScale = GetSize();
+            NotifySize();
         }
 
         /// <summary>
-        /// Returns: Resolution scaler
+        /// Returns the current canvas size
         /// </summary>
-        private float GetResolution(){
-            var xPercent = Mathf.InverseLerp(
-                0, _defResolution.x, _resolution.width
+        private Vector3 GetSize(){
+            return new Vector3(
+                _resolution.x / _defResolution.x,
+                _resolution.y / _defResolution.y,
+                1f
             );
-            var yPercent = Mathf.InverseLerp(
-                0, _defResolution.y, _resolution.height
-            );
-
-            return Mathf.Min(xPercent, yPercent);
-        }
-
-        /// <summary>
-        /// Returns: Transform scaler
-        /// </summary>
-        private Vector3 GetScaler(){
-            return transform.localScale;
         }
 
 // RESOLUTION
@@ -51,15 +50,34 @@ namespace Magnuth.Interface
         /// <summary>
         /// Monitors current screen resolution
         /// </summary>
-        private void Update(){
-            _resolution = Screen.currentResolution;
+        private void LateUpdate(){
+            if (UpdatedResolution()){ 
+                ChangeSize();
+            }
+        }
 
-            if (_resolution.width  == _defResolution.x &&
-                _resolution.height == _defResolution.y)
-                return;
+        /// <summary>
+        /// Returns if current resolution was updated
+        /// </summary>
+        private bool UpdatedResolution(){
+            //_current.x = Screen.width;
+            //_current.y = Screen.height;
+            _current.x = 1920 * 2;
+            _current.y = 1080;
 
-            _resScaler = GetResolution();
-            UpdateElements();
+            if (!ChangedResolution()) 
+                return false;
+
+            _resolution = _current;
+            return true;
+        }
+
+        /// <summary>
+        /// Returns if resolution has changed
+        /// </summary>
+        private bool ChangedResolution(){
+            return _current.x != _resolution.x ||
+                   _current.y != _resolution.y;
         }
     }
 }

@@ -13,4 +13,62 @@ MonoBehaviour:
   m_Name: Font Setup
   m_EditorClassIdentifier: 
   _atlas: {fileID: 2800000, guid: 2b21b5f9e3ae4b04895ea4f15e335468, type: 3}
-  _columnsRows: {x: 8, y: 8}
+  _tiles: {x: 8, y: 8}
+  _size: {x: 0.125, y: 0.125}
+  _characters:
+  - ID: 105
+    Coord: {x: 0, y: 0}
+  - ID: 104
+    Coord: {x: 0.125, y: 0}
+  - ID: 98
+    Coord: {x: 0.25, y: 0}
+  - ID: 117
+    Coord: {x: 0, y: 0.125}
+  - ID: 103
+    Coord: {x: 0.125, y: 0.125}
+  - ID: 118
+    Coord: {x: 0.25, y: 0.125}
+  - ID: 121
+    Coord: {x: 0, y: 0.25}
+  - ID: 102
+    Coord: {x: 0.125, y: 0.25}
+  - ID: 99
+    Coord: {x: 0.25, y: 0.25}
+  - ID: 116
+    Coord: {x: 0, y: 0.375}
+  - ID: 100
+    Coord: {x: 0.125, y: 0.375}
+  - ID: 120
+    Coord: {x: 0.25, y: 0.375}
+  - ID: 114
+    Coord: {x: 0, y: 0.5}
+  - ID: 115
+    Coord: {x: 0.125, y: 0.5}
+  - ID: 122
+    Coord: {x: 0.25, y: 0.5}
+  - ID: 45
+    Coord: {x: 0.375, y: 0.5}
+  - ID: 101
+    Coord: {x: 0, y: 0.625}
+  - ID: 97
+    Coord: {x: 0.125, y: 0.625}
+  - ID: 108
+    Coord: {x: 0.25, y: 0.625}
+  - ID: 43
+    Coord: {x: 0.375, y: 0.625}
+  - ID: 119
+    Coord: {x: 0, y: 0.75}
+  - ID: 112
+    Coord: {x: 0.125, y: 0.75}
+  - ID: 107
+    Coord: {x: 0.25, y: 0.75}
+  - ID: 109
+    Coord: {x: 0.375, y: 0.75}
+  - ID: 113
+    Coord: {x: 0, y: 0.875}
+  - ID: 111
+    Coord: {x: 0.125, y: 0.875}
+  - ID: 106
+    Coord: {x: 0.25, y: 0.875}
+  - ID: 110
+    Coord: {x: 0.375, y: 0.875}
