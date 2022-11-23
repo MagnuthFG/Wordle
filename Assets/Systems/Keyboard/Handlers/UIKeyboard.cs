@@ -1,11 +1,9 @@
 using SF = UnityEngine.SerializeField;
-using Action = System.Action<string>;
+using Action = System.Action<char>;
+using System.Collections.Generic;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.InputSystem;
 using UnityEngine;
-using System.Collections.Generic;
-using static UnityEngine.UI.Image;
-using UnityEngine.UIElements;
 
 namespace Magnuth.Interface
 {
@@ -23,25 +21,25 @@ namespace Magnuth.Interface
         private Subscription<Action> _subscribers = new();
         private System.IDisposable   _listener    = null;
 
-        private Dictionary<string, UIKey> _keys = new(){
-            { "q", null }, { "w", null }, { "e", null }, { "r", null }, 
-            { "t", null }, { "y", null }, { "u", null }, { "i", null }, 
-            { "o", null }, { "p", null }, { "a", null }, { "s", null }, 
-            { "d", null }, { "f", null }, { "g", null }, { "h", null }, 
-            { "j", null }, { "k", null }, { "l", null }, { "-", null },
-            { "z", null }, { "x", null }, { "c", null }, { "v", null }, 
-            { "b", null }, { "n", null }, { "m", null }, { "+", null },
+        private Dictionary<char, UIKey> _keys = new(){
+            { 'q', null }, { 'w', null }, { 'e', null }, { 'r', null }, 
+            { 't', null }, { 'y', null }, { 'u', null }, { 'i', null }, 
+            { 'o', null }, { 'p', null }, { 'a', null }, { 's', null }, 
+            { 'd', null }, { 'f', null }, { 'g', null }, { 'h', null }, 
+            { 'j', null }, { 'k', null }, { 'l', null }, { '-', null },
+            { 'z', null }, { 'x', null }, { 'c', null }, { 'v', null }, 
+            { 'b', null }, { 'n', null }, { 'm', null }, { '+', null },
         };
 
 // INITIALISATION
 
         /// <summary>
-        /// Initialises: instantiates keys
+        /// Initialises the keys
         /// </summary>
         private void Start() => BuildKeyboard();
 
         /// <summary>
-        /// Initialises: input callback
+        /// Initialises the input callback
         /// </summary>
         private void OnEnable(){
             _listener = InputSystem.onAnyButtonPress.Call(
@@ -50,7 +48,7 @@ namespace Magnuth.Interface
         }
 
         /// <summary>
-        /// Deinitialises: input callback
+        /// Deinitialises the input callback
         /// </summary>
         private void OnDisable(){
             _listener.Dispose();
@@ -59,14 +57,14 @@ namespace Magnuth.Interface
 // INPUT CALLBACK
 
         /// <summary>
-        /// Event: on input pressed
+        /// On input pressed callback
         /// </summary>
         private void OnAnyKeyInput(string input){
-            input = ProcessInput(input);
-            if (!_keys.ContainsKey(input)) 
+            var character = ProcessInput(input);
+            if (!_keys.ContainsKey(character)) 
                 return;
 
-            var key = _keys[input];
+            var key = _keys[character];
             key.OnPointerDown(null);
 
             _pressed.Enqueue(key);
@@ -74,7 +72,7 @@ namespace Magnuth.Interface
         }
 
         /// <summary>
-        /// Event: on input invoke
+        /// On input invoke event
         /// </summary>
         private void OnReleaseKey(){
             if (_pressed.Count == 0) return;
@@ -83,22 +81,22 @@ namespace Magnuth.Interface
         }
 
         /// <summary>
-        /// Returns: matches user input to keyboard keys
+        /// Matches user input to keyboard keys
         /// </summary>
-        private string ProcessInput(string input){
+        private char ProcessInput(string input){
             switch (input){
-                case "enter"      : return "+";
-                case "numpadPlus" : return "+";
-                case "backspace"  : return "-";
-                case "numpadMinus": return "-";
-                default: return input;
+                case "enter"      : return '+';
+                case "numpadPlus" : return '+';
+                case "backspace"  : return '-';
+                case "numpadMinus": return '-';
+                default: return input[0];
             }
         }
 
 // INTERFACE
 
         /// <summary>
-        /// Instantiates: keyboard keys
+        /// Instantiates the keyboard keys
         /// </summary>
         public void BuildKeyboard(){
             var origin = _transform.localPosition;
@@ -109,7 +107,7 @@ namespace Magnuth.Interface
             int column = 0;
             int row    = 0;
 
-            var keys  = new List<string>(_keys.Keys);
+            var keys  = new List<char>(_keys.Keys);
             var xSize = (_widthHeightDepth.x + _spacing.x);
             var ySize = (_widthHeightDepth.y + _spacing.y);
             var point = _centre;
@@ -143,13 +141,13 @@ namespace Magnuth.Interface
         }
 
         /// <summary>
-        /// Event: on clicked key button
+        /// On clicked key button callback
         /// </summary>
         public void OnClicked(params object[] args){
-            if (args == null || args.Length == 0) return;
+            if (args?.Length == 0) return;
             
-            var input = (string)args[0];
-            if (string.IsNullOrEmpty(input)) return;
+            var input = (char)args[0];
+            if (input == '\0') return;
 
             _subscribers.NotifySubscribers(input);
         }

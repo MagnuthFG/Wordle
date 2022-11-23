@@ -1,3 +1,4 @@
+using SS = System.SerializableAttribute;
 using SF = UnityEngine.SerializeField;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,8 @@ namespace Magnuth.Interface
      menuName = "Magnuth/Interface/Font Setup")]
     public class FontSetup : ScriptableObject
     {
-        [System.Serializable]
-        public class CharInfo {
-            public char ID = default;
+        [SS] public class CharInfo {
+            public char ID = NULLCHAR;
             public Vector2 Coord = Vector2.zero;
 
             public CharInfo(char ID, Vector2 coord) {
@@ -24,6 +24,8 @@ namespace Magnuth.Interface
 
         [SF] private Vector2 _size = Vector2.zero;
         [SF] private List<CharInfo> _characters = new();
+
+        private const char NULLCHAR = '\0';
 
 // INITIALISATION
 
@@ -91,6 +93,9 @@ namespace Magnuth.Interface
         /// Returns the character rect
         /// </summary>
         public Rect GetRect(char character){
+            if (character == NULLCHAR)
+                return Rect.zero;
+
             var info = _characters.Find(
                 c => c.ID == character
             );
@@ -108,6 +113,9 @@ namespace Magnuth.Interface
         /// Returns the character vector
         /// </summary>
         public Vector4 GetVector(char character){
+            if (character == NULLCHAR)
+                return Vector4.zero;
+
             var info = _characters.Find(
                 c => c.ID == character
             );

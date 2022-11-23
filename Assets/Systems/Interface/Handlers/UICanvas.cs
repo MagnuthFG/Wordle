@@ -7,7 +7,6 @@ namespace Magnuth.Interface
     public sealed class UICanvas : UIElement
     {
         [Header("Canvas")]
-        [SF] private Camera _uiCamera = null;
         [SF] private Vector2Int _defResolution = new Vector2Int(1920, 1080);
 
         private Vector2 _current    = default;

@@ -11,25 +11,25 @@ namespace Magnuth.Interface
 
 // PROPERTIES
 
-        public string Key => _character.Character;
+        public char Character => _character.Character;
 
 // SETTINGS
 
         /// <summary>
-        /// Specifies: displayed character
+        /// Changes the displayed character
         /// </summary>
-        public void SetKey(string input){
-            _character.SetCharater(input);
+        public void SetKey(char input){
+            _character?.SetCharater(input);
         }
 
 // INTERFACE
 
         /// <summary>
-        /// Event: on mouse released
+        /// On button released event
         /// </summary>
         public override void OnPointerUp(PointerEventData data){
             SetColour(_hovering ? _highlighted : _colour);
-            _btnTarget?.OnClicked(Key);
+            _btnTarget?.OnClicked(new object[1]{ Character });
         }
     }
 }

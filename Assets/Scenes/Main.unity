@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!20 &31672082 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8039866813353033806, guid: 9a4ba0dbe298bce4d8e11963261c084d, type: 3}
-  m_PrefabInstance: {fileID: 8039866814004800829}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &139865141 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5944470956951678848, guid: b7b9639c25a11764f9a7ccff897cf791, type: 3}
@@ -284,7 +279,6 @@ MonoBehaviour:
   _point: {x: 0, y: 0, z: 0}
   _size: {x: 1, y: 1, z: 1}
   _sizing: 0
-  _uiCamera: {fileID: 31672082}
   _defResolution: {x: 1920, y: 1080}
 --- !u!114 &1029138837
 MonoBehaviour:
@@ -298,8 +292,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c186965ecf8ff94fbbc8bf7fa08a39c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slotGrid: {fileID: 762075902}
+  _correct: {r: 0.32617807, g: 0.7, b: 0.139267, a: 1}
+  _incorrect: {r: 0.8, g: 0.7048366, b: 0.24000001, a: 1}
+  _wrong: {r: 0.7490196, g: 0.1990196, b: 0.14901958, a: 1}
+  _wordList: {fileID: 4900000, guid: 17b020c50ed1f7d459eee32d55cf5a9b, type: 3}
   _keyboard: {fileID: 1531775821}
+  _slotGrid: {fileID: 762075902}
 --- !u!114 &1531775821 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2073827592257061278, guid: a799c9724067a1144a46dbf0faf0d280, type: 3}

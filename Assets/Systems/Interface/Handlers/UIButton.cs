@@ -14,14 +14,14 @@ namespace Magnuth.Interface
 
         [Header("Button")]
 		[SF] protected GameObject _target = null;
-		protected IButtonTarget _btnTarget = null;
 
 		protected bool _hovering = false;
+		protected IButtonTarget _btnTarget = null;
 
 // INITIALISATION
 
 		/// <summary>
-		/// Initialises: button target
+		/// Initialises the button target
 		/// </summary>
 		protected override void Awake(){
 			base.Awake();
@@ -31,7 +31,7 @@ namespace Magnuth.Interface
 // SETTINGS
 
 		/// <summary>
-		/// Specifies: button target
+		/// Changes the button target
 		/// </summary>
 		public void SetTarget(GameObject target){
 			if (target == null) return;
@@ -43,7 +43,7 @@ namespace Magnuth.Interface
 // INTERFACE
 
         /// <summary>
-        /// Event: on mouse over
+        /// On entered button event
         /// </summary>
         public virtual void OnPointerEnter(PointerEventData eventData){
             SetColour(_highlighted);
@@ -51,7 +51,7 @@ namespace Magnuth.Interface
 		}
 
         /// <summary>
-        /// Event: on mouse exited
+        /// On exited button event
         /// </summary>
         public virtual void OnPointerExit(PointerEventData eventData){
             SetColour(_colour);
@@ -59,14 +59,14 @@ namespace Magnuth.Interface
         }
 
         /// <summary>
-        /// Event: on mouse clicked
+        /// On button clicked event
         /// </summary>
         public virtual void OnPointerDown(PointerEventData eventData){
 			SetColour(_pressed);
 		}
 
         /// <summary>
-        /// Event: on mouse released
+        /// On button released event
         /// </summary>
         public virtual void OnPointerUp(PointerEventData eventData){
             SetColour(_hovering ? _highlighted : _colour);

@@ -13,11 +13,6 @@
 
 
 # Continue adding features to WordHandler
-- Read the text file of words and put each word in a list
-
-- Use DateTime.Current.Date as the seed for the word of the day
-  Then use System.Random(seed) to pick the word in the list
- 
 - Create a word comparing method
   First loop over chars in randomly selected word string
   Then loop over chars in player written string
@@ -25,11 +20,6 @@
   Check if the char in written string is same the as the
   the char in the word string. Then check if they loops
   have the same index
-  
-- Colour the keyboard keys and and slots based on the guess
-  If they char has the same index, colour the slot and key
-  backgrounds green, else colour it yellow and if nothing is
-  right then red or dark grey
   
 - Fix so the submitted words are saved to a encrypted json file?
   and is only reset on a new date. Store the date and words in

@@ -9,14 +9,14 @@ namespace Magnuth.Interface
 
 // PROPERTIES
 
-        public string Character => _character.Character;
+        public char Character => _character.Character;
 
 // SETTINGS
 
         /// <summary>
         /// Specifies: displayed character
         /// </summary>
-        public void SetCharacter(string input){
+        public void SetCharacter(char input){
             _character.SetCharater(input);
         }
     }

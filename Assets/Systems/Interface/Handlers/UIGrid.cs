@@ -26,14 +26,14 @@ namespace Magnuth.Interface
 // INITIALISATION
 
         /// <summary>
-        /// Initialises: instantiates grid
+        /// Initialises the grid
         /// </summary>
         protected virtual void Start() => BuildGrid();
 
 // INTERFACE
 
         /// <summary>
-        /// Instantiates: grid
+        /// Instantiates the grid
         /// </summary>
         private void BuildGrid(){
             var origin = _transform.localPosition;
