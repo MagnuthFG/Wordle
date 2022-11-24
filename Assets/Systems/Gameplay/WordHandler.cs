@@ -10,13 +10,15 @@ namespace Wordl
     [DefaultExecutionOrder(1)]
     public class WordHandler : MonoBehaviour
     {
-        [SF] private Color _correct = Color.green;
-        [SF] private Color _incorrect = Color.yellow;
-        [SF] private Color _wrong = Color.red;
-        [Space]
+        [SF] private int        _chances  = 5;
         [SF] private TextAsset  _wordList = null;
+        [Space]
         [SF] private UIKeyboard _keyboard = null;
         [SF] private UIGrid     _slotGrid = null;
+        [Space]
+        [SF] private Color _correct   = Color.green;
+        [SF] private Color _incorrect = Color.yellow;
+        [SF] private Color _wrong     = Color.red;
 
         private string _wordToday = string.Empty;
         private string _wordInput = string.Empty;
@@ -26,7 +28,6 @@ namespace Wordl
         private Stack<UISlot> _filled   = null;
         private Dictionary<char, UIKey> _keys  = null;
 
-        private const int WORDLENGTH = 5;
         private const string COLOUR_PARAM = "_Color2";
 
 // INITIALISATION
@@ -114,7 +115,7 @@ namespace Wordl
             var slots = _slotGrid.GetComponentsInChildren<UISlot>();
             _unfilled = new Stack<UISlot>(slots.Length);
             _filled   = new Stack<UISlot>(slots.Length);
-            _changed  = new List<UISlot>(WORDLENGTH);
+            _changed  = new List<UISlot>(_wordToday.Length);
 
             for (int i = slots.Length - 1; i >= 0; i--){
                 _unfilled.Push(slots[i]);
@@ -140,7 +141,7 @@ namespace Wordl
         /// </summary>
         private void OnKeyboardInput(char input){
             switch (input){
-                case '+': CompareWords();   break;
+                case '+': CheckWord();      break;
                 case '-': RemoveFromWord(); break;
                 default:  AddToWord(input); break;
             }
@@ -150,7 +151,7 @@ namespace Wordl
         /// Adds character to end of word and slot row
         /// </summary>
         private void AddToWord(char input){
-            if (_wordInput.Length >= WORDLENGTH) return;
+            if (_wordInput.Length == _wordToday.Length) return;
             _wordInput = string.Concat(_wordInput, input);
 
             if (_unfilled.Count == 0) return;
@@ -176,44 +177,82 @@ namespace Wordl
             _changed.Remove(slot);
         }
 
+
         /// <summary>
-        /// Compares words and displays the result
+        /// Checks the input against the word of the day
         /// </summary>
-        private void CompareWords(){
-            if (_wordInput.Length != WORDLENGTH) return;
+        private void CheckWord(){
+            var count = _wordToday.Length;
+            if (_wordInput.Length != count) return;
 
+            var score = CompareWords();
+            var won   = score == count * 2;
+            _chances -= 1;
 
-
-            _wordInput = string.Empty;
-            _changed.Clear();
+            if (won || (!won && _chances == 0)){ 
+                DisplayWinLoose(won);
+            }
         }
 
-        private void OLDCompareWords(){
-            if (_wordInput.Length != WORDLENGTH) return;
-            Debug.Log($"TODAY {_wordToday} INPUT {_wordInput}");
+        /// <summary>
+        /// Displays the final game result in the console
+        /// </summary>
+        private void DisplayWinLoose(bool won){
+            var colour  = won ? _correct : _wrong;
+
+            var message = won ?
+                "Congratulation! You guessed the right word!":
+                "I'm sorry. You have no more chances left";
+
+            var hex = ColorUtility.ToHtmlStringRGB(colour);
+            Debug.Log($"<color=#{hex}>{message}</color>");
+
+            _keyboard.enabled = false;
+        }
+
+
+        /// <summary>
+        /// Compares words and displays the result
+        /// <br>Returns the score of the guessed word</br>
+        /// </summary>
+        private int CompareWords(){
+            var score = 0;
 
             for (int i = 0; i < _wordInput.Length; i++){
-                var input = _wordInput[i];
-                var level = 0;
-
-                for (int j = 0; j < _wordToday.Length; j++){
-                    if (input == _wordToday[j]){
-                        level = i == j ? 2 : 1;
-                        break;
-                    }
-                }
+                var input  = _wordInput[i];
+                var level  = CompareWord(input, i);
+                    score += level;
 
                 _changed[i].SetColour(
-                    level > 1 ? _correct : level > 0 ? _incorrect : _wrong,
+                    level > 1 ? _correct   : 
+                    level > 0 ? _incorrect : _wrong,
                     COLOUR_PARAM
                 );
 
                 if (level > 0) continue;
-                _keys[input].SetColour(_wrong, COLOUR_PARAM);
+
+                _keys[input].SetColour(
+                    _wrong, COLOUR_PARAM
+                );
             }
 
             _wordInput = string.Empty;
             _changed.Clear();
+            return score;
+        }
+
+        /// <summary>
+        /// Compares the character with the word of the day
+        /// <br>Returns level of correctness</br>
+        /// </summary>
+        private int CompareWord(char character, int index){
+            if (_wordToday[index] == character) return 2;
+
+            for (int i = 0; i < _wordToday.Length; i++){
+                if (_wordToday[i] == character) return 1;
+            }
+
+            return 0;
         }
     }
 }

@@ -46,7 +46,7 @@ MonoBehaviour:
     Coord: {x: 0.125, y: 0.5}
   - ID: 122
     Coord: {x: 0.25, y: 0.5}
-  - ID: 45
+  - ID: 47
     Coord: {x: 0.375, y: 0.5}
   - ID: 101
     Coord: {x: 0, y: 0.625}
@@ -54,7 +54,7 @@ MonoBehaviour:
     Coord: {x: 0.125, y: 0.625}
   - ID: 108
     Coord: {x: 0.25, y: 0.625}
-  - ID: 43
+  - ID: 92
     Coord: {x: 0.375, y: 0.625}
   - ID: 119
     Coord: {x: 0, y: 0.75}

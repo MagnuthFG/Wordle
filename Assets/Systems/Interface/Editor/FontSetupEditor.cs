@@ -2,6 +2,7 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 namespace Magnuth.Interface
 {
@@ -85,7 +86,10 @@ namespace Magnuth.Interface
                 var image = CreateImage(texture, height, size, cval);
                 root.Add(image);
 
-                root.Add(new PropertyField(id, ""));
+                var text = CreateIDText(id);
+                root.Add(text);
+
+                //root.Add(new PropertyField(id, ""));
                 root.Add(new PropertyField(coord, ""));
 
                 //root.Add(group);
@@ -105,6 +109,7 @@ namespace Magnuth.Interface
             root.Add(button);
         }
 
+// ELEMENTS
 
         /// <summary>
         /// 
@@ -141,7 +146,34 @@ namespace Magnuth.Interface
             return image;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private TextField CreateIDText(SerializedProperty property){
+            var text = new TextField(2, false, false, '\0');
+            text.value = new string((char)property.intValue, 1);
+
+            text.RegisterValueChangedCallback(
+                (txt) => OnIDChanged(property, txt.newValue)
+            );
+
+            return text;
+        }
+
 // EVENTS
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void OnIDChanged(SerializedProperty id, string value){
+            if (value.Length > 1 && char.IsLetter(value[0]))
+                value = value.Substring(0, 1);
+
+            id.intValue = char.Parse(value);
+
+            serializedObject.ApplyModifiedProperties();
+            serializedObject.Update();
+        }
 
         /// <summary>
         /// On build button pressed

@@ -13,13 +13,9 @@
 
 
 # Continue adding features to WordHandler
-- Create a word comparing method
-  First loop over chars in randomly selected word string
-  Then loop over chars in player written string
-  
-  Check if the char in written string is same the as the
-  the char in the word string. Then check if they loops
-  have the same index
+- Create the winning and loosing condition!
+  Output the word of the day if you loose
+  Debug.LogWarning($"Word of the Day: {_wordToday}");
   
 - Fix so the submitted words are saved to a encrypted json file?
   and is only reset on a new date. Store the date and words in

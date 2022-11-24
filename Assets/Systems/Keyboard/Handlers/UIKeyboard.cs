@@ -1,7 +1,6 @@
 using SF = UnityEngine.SerializeField;
 using Action = System.Action<char>;
 using System.Collections.Generic;
-using UnityEngine.InputSystem.Utilities;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
@@ -10,7 +9,12 @@ namespace Magnuth.Interface
     [AddComponentMenu("Magnuth/Interface/UI Keyboard")]
     public class UIKeyboard : UIElement, IButtonTarget
     {
-        [Header("Keyboard")]
+        [Header("Keyboard Input")]
+        [SF] private InputActionReference _submitInput = null;
+        [SF] private InputActionReference _removeInput = null;
+        [SF] private InputActionReference _keysInput   = null;
+
+        [Header("Keyboard Grid")]
         [SF] private Vector3 _centre  = Vector3.zero;
         [SF] private Vector3 _spacing = Vector3.zero;
         [Space]
@@ -19,16 +23,15 @@ namespace Magnuth.Interface
 
         private Queue<UIKey>         _pressed     = new(7);
         private Subscription<Action> _subscribers = new();
-        private System.IDisposable   _listener    = null;
 
         private Dictionary<char, UIKey> _keys = new(){
-            { 'q', null }, { 'w', null }, { 'e', null }, { 'r', null }, 
-            { 't', null }, { 'y', null }, { 'u', null }, { 'i', null }, 
-            { 'o', null }, { 'p', null }, { 'a', null }, { 's', null }, 
-            { 'd', null }, { 'f', null }, { 'g', null }, { 'h', null }, 
-            { 'j', null }, { 'k', null }, { 'l', null }, { '-', null },
-            { 'z', null }, { 'x', null }, { 'c', null }, { 'v', null }, 
-            { 'b', null }, { 'n', null }, { 'm', null }, { '+', null },
+            { 'q', null }, { 'w', null }, { 'e', null }, { 'r', null  }, 
+            { 't', null }, { 'y', null }, { 'u', null }, { 'i', null  }, 
+            { 'o', null }, { 'p', null }, { 'a', null }, { 's', null  }, 
+            { 'd', null }, { 'f', null }, { 'g', null }, { 'h', null  }, 
+            { 'j', null }, { 'k', null }, { 'l', null }, { '\b', null },
+            { 'z', null }, { 'x', null }, { 'c', null }, { 'v', null  }, 
+            { 'b', null }, { 'n', null }, { 'm', null }, { '\n', null },
         };
 
 // INITIALISATION
@@ -42,27 +45,57 @@ namespace Magnuth.Interface
         /// Initialises the input callback
         /// </summary>
         private void OnEnable(){
-            _listener = InputSystem.onAnyButtonPress.Call(
-                ctrl => OnAnyKeyInput(ctrl.name)
-            );
+            _submitInput.action.canceled += ctx => OnSubmitInput(ctx);
+            _removeInput.action.canceled += ctx => OnRemoveInput(ctx);
+            _keysInput.action.canceled   += ctx => OnKeysInput(ctx);
+
+            _submitInput.action.Enable();
+            _removeInput.action.Enable();
+            _keysInput.action.Enable();
         }
 
         /// <summary>
         /// Deinitialises the input callback
         /// </summary>
         private void OnDisable(){
-            _listener.Dispose();
+            _removeInput.action.canceled -= OnSubmitInput;
+            _removeInput.action.canceled -= OnRemoveInput;
+            _keysInput.action.canceled   -= OnKeysInput;
+
+            _submitInput.action.Disable();
+            _removeInput.action.Disable();
+            _keysInput.action.Disable();
         }
 
 // INPUT CALLBACK
 
         /// <summary>
-        /// On input pressed callback
+        /// On submit word input callback
         /// </summary>
-        private void OnAnyKeyInput(string input){
-            var character = ProcessInput(input);
-            if (!_keys.ContainsKey(character)) 
-                return;
+        private void OnSubmitInput(InputAction.CallbackContext ctx){
+            ActivateKey('\n');
+        }
+
+        /// <summary>
+        /// On remove character input callback
+        /// </summary>
+        private void OnRemoveInput(InputAction.CallbackContext ctx){
+            ActivateKey('\r');
+        }
+
+        /// <summary>
+        /// On keyboard key input callback
+        /// </summary>
+        private void OnKeysInput(InputAction.CallbackContext ctx){
+            var key = ctx.control.name[0];
+            ActivateKey(key);
+        }
+
+        /// <summary>
+        /// Triggers the keyboard key from input
+        /// </summary>
+        private void ActivateKey(char character){
+            if (!_keys.ContainsKey(character)) return;
 
             var key = _keys[character];
             key.OnPointerDown(null);
@@ -78,19 +111,6 @@ namespace Magnuth.Interface
             if (_pressed.Count == 0) return;
             var key = _pressed.Dequeue();
             key.OnPointerUp(null);
-        }
-
-        /// <summary>
-        /// Matches user input to keyboard keys
-        /// </summary>
-        private char ProcessInput(string input){
-            switch (input){
-                case "enter"      : return '+';
-                case "numpadPlus" : return '+';
-                case "backspace"  : return '-';
-                case "numpadMinus": return '-';
-                default: return input[0];
-            }
         }
 
 // INTERFACE

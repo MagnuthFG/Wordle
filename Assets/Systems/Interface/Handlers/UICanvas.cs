@@ -59,10 +59,10 @@ namespace Magnuth.Interface
         /// Returns if current resolution was updated
         /// </summary>
         private bool UpdatedResolution(){
-            //_current.x = Screen.width;
-            //_current.y = Screen.height;
-            _current.x = 1920 * 2;
-            _current.y = 1080;
+            _current.x = Screen.width;
+            _current.y = Screen.height;
+            //_current.x = 1920 * 2;
+            //_current.y = 1080;
 
             if (!ChangedResolution()) 
                 return false;

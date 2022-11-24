@@ -110,7 +110,7 @@ namespace Magnuth.Interface
         }
 
         /// <summary>
-        /// Returns the character vector
+        /// Returns the character rect as a vector
         /// </summary>
         public Vector4 GetVector(char character){
             if (character == NULLCHAR)
