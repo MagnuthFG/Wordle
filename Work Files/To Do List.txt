@@ -13,22 +13,30 @@
 
 
 # Continue adding features to WordHandler
-- Create the winning and loosing condition!
-  Output the word of the day if you loose
-  Debug.LogWarning($"Word of the Day: {_wordToday}");
-  
 - Fix so the submitted words are saved to a encrypted json file?
   and is only reset on a new date. Store the date and words in
   a struct which is then converted to json
+  Must be able to toggle this on and off while testing
 
 
 ===============================================================
 // BUGS AND IMPROVEMENTS
 ===============================================================
+# Continue improving the visuals
+- Add 80s scifi colours via post processing?
+
+- Add some more detail to the background.
+  Multiply glow with perlin noise to animate it?
+  Speed lines that move?
+  
+- Add drop shadows to everything?
+  Output shadow mask via SDF to Mask?
+
+
 # Continue adding features to FontSetup
 - Improve the look of the inspector so the properties
-  are next to the image. Maybe have them on a single line?
-  Have the char be narrow so it only fits one character?
+  are next to the image. Also so that I can type in the
+  character and turn it into its ascii version automatically
 
 
 # Continue improving the UIElement
@@ -36,17 +44,6 @@
   inspector, it will adapt to parent scales and update its
   children as well, based on sizing
 
-
-# Add the background 
-- Create it via the shader and use UV coordinates for the
-  "SDF" gradient and then the same masking approach as the
-  other shaders
-
-- Generate a square pattern or something so its more detailed?
-  Use Fraq with world position and feed into the Box SDF or
-  something? Boxes outside the boarder and hexagons inside?
-  Add a separate colour for each shape outline?
-  
   
 # Continue fixing the UIGrid
 - Add a button underneath the grid that allow me to spawn

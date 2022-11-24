@@ -140,9 +140,11 @@ namespace Wordl
         /// On UI keyboard input callback
         /// </summary>
         private void OnKeyboardInput(char input){
+            if (!this.enabled) return;
+
             switch (input){
-                case '+': CheckWord();      break;
-                case '-': RemoveFromWord(); break;
+                case '\n': CheckWord();      break;
+                case '\b': RemoveFromWord(); break;
                 default:  AddToWord(input); break;
             }
         }
@@ -205,9 +207,9 @@ namespace Wordl
                 "I'm sorry. You have no more chances left";
 
             var hex = ColorUtility.ToHtmlStringRGB(colour);
-            Debug.Log($"<color=#{hex}>{message}</color>");
+            Debug.Log($"<color=#{hex}><b>{message}</b></color>");
 
-            _keyboard.enabled = false;
+            this.enabled = false;
         }
 
 

@@ -357,8 +357,8 @@
     "m_ObjectId": "0003570e468c4141aac73b9f8d124b37",
     "m_Title": "SHAPE",
     "m_Position": {
-        "x": -1288.391357421875,
-        "y": 134.0
+        "x": -1149.0001220703125,
+        "y": 138.00001525878907
     }
 }
 
@@ -398,10 +398,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1217.0,
-            "y": 331.0,
-            "width": 99.0,
-            "height": 34.000030517578128
+            "x": -1078.0001220703125,
+            "y": 335.0000305175781,
+            "width": 99.00006103515625,
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -572,7 +572,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "_Min_Range",
     "m_StageCapability": 3,
-    "m_Value": 0.9700000286102295,
+    "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -604,10 +604,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1087.0,
-            "y": 203.0,
-            "width": 142.0,
-            "height": 118.00003051757813
+            "x": -948.0000610351563,
+            "y": 207.00001525878907,
+            "width": 142.00006103515626,
+            "height": 117.99998474121094
         }
     },
     "m_Slots": [
@@ -653,10 +653,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1263.0,
-            "y": 193.0,
-            "width": 145.0,
-            "height": 128.99996948242188
+            "x": -1124.0001220703125,
+            "y": 197.00001525878907,
+            "width": 145.00006103515626,
+            "height": 128.99998474121095
         }
     },
     "m_Slots": [
@@ -1040,7 +1040,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -1665,7 +1665,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "_Max_Range",
     "m_StageCapability": 3,
-    "m_Value": 1.0,
+    "m_Value": 0.029999999329447748,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -1895,7 +1895,7 @@
     "m_ObjectId": "fbe39a641f1e4e76a947ddd5faa8dc31",
     "m_Title": "MASK",
     "m_Position": {
-        "x": -868.0,
+        "x": -730.0,
         "y": 144.0
     }
 }
@@ -1944,8 +1944,8 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "x": 0.25,
-        "y": 0.25,
+        "x": 0.8500000238418579,
+        "y": 0.8500000238418579,
         "z": 0.0,
         "w": 0.0
     }

@@ -2,7 +2,7 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEditor;
-using System;
+using System.Text.RegularExpressions;
 
 namespace Magnuth.Interface
 {
@@ -151,7 +151,7 @@ namespace Magnuth.Interface
         /// </summary>
         private TextField CreateIDText(SerializedProperty property){
             var text = new TextField(2, false, false, '\0');
-            text.value = new string((char)property.intValue, 1);
+            text.value = property.intValue.ToString();
 
             text.RegisterValueChangedCallback(
                 (txt) => OnIDChanged(property, txt.newValue)
@@ -165,14 +165,11 @@ namespace Magnuth.Interface
         /// <summary>
         /// 
         /// </summary>
-        private void OnIDChanged(SerializedProperty id, string value){
-            if (value.Length > 1 && char.IsLetter(value[0]))
-                value = value.Substring(0, 1);
-
-            id.intValue = char.Parse(value);
-
+        private void OnIDChanged(SerializedProperty property, string value){
+            property.intValue = System.Convert.ToInt32(value);
             serializedObject.ApplyModifiedProperties();
-            serializedObject.Update();
+
+            this.Repaint();
         }
 
         /// <summary>

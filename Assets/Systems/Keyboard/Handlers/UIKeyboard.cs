@@ -67,52 +67,6 @@ namespace Magnuth.Interface
             _keysInput.action.Disable();
         }
 
-// INPUT CALLBACK
-
-        /// <summary>
-        /// On submit word input callback
-        /// </summary>
-        private void OnSubmitInput(InputAction.CallbackContext ctx){
-            ActivateKey('\n');
-        }
-
-        /// <summary>
-        /// On remove character input callback
-        /// </summary>
-        private void OnRemoveInput(InputAction.CallbackContext ctx){
-            ActivateKey('\r');
-        }
-
-        /// <summary>
-        /// On keyboard key input callback
-        /// </summary>
-        private void OnKeysInput(InputAction.CallbackContext ctx){
-            var key = ctx.control.name[0];
-            ActivateKey(key);
-        }
-
-        /// <summary>
-        /// Triggers the keyboard key from input
-        /// </summary>
-        private void ActivateKey(char character){
-            if (!_keys.ContainsKey(character)) return;
-
-            var key = _keys[character];
-            key.OnPointerDown(null);
-
-            _pressed.Enqueue(key);
-            Invoke("OnReleaseKey", 0.1f);
-        }
-
-        /// <summary>
-        /// On input invoke event
-        /// </summary>
-        private void OnReleaseKey(){
-            if (_pressed.Count == 0) return;
-            var key = _pressed.Dequeue();
-            key.OnPointerUp(null);
-        }
-
 // INTERFACE
 
         /// <summary>
@@ -170,6 +124,53 @@ namespace Magnuth.Interface
             if (input == '\0') return;
 
             _subscribers.NotifySubscribers(input);
+        }
+
+// INPUT CALLBACK
+
+        /// <summary>
+        /// On submit word input callback
+        /// </summary>
+        private void OnSubmitInput(InputAction.CallbackContext ctx){
+            ActivateKey('\n');
+        }
+
+        /// <summary>
+        /// On remove character input callback
+        /// </summary>
+        private void OnRemoveInput(InputAction.CallbackContext ctx){
+            ActivateKey('\b');
+        }
+
+        /// <summary>
+        /// On keyboard key input callback
+        /// </summary>
+        private void OnKeysInput(InputAction.CallbackContext ctx){
+            var key = ctx.control.name[0];
+            ActivateKey(key);
+        }
+
+
+        /// <summary>
+        /// Triggers the keyboard key from input
+        /// </summary>
+        private void ActivateKey(char character){
+            if (!_keys.ContainsKey(character)) return;
+
+            var key = _keys[character];
+            key.OnPointerDown(null);
+
+            _pressed.Enqueue(key);
+            Invoke("OnReleaseKey", 0.1f);
+        }
+
+        /// <summary>
+        /// On input invoke event
+        /// </summary>
+        private void OnReleaseKey(){
+            if (_pressed.Count == 0) return;
+            var key = _pressed.Dequeue();
+            key.OnPointerUp(null);
         }
 
 // SUBSCRIPTIONS
