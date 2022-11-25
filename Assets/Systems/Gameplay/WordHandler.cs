@@ -10,9 +10,7 @@ namespace Wordl
     [DefaultExecutionOrder(1)]
     public class WordHandler : MonoBehaviour
     {
-        [SF] private int        _chances  = 5;
         [SF] private TextAsset  _wordList = null;
-        [Space]
         [SF] private UIKeyboard _keyboard = null;
         [SF] private UIGrid     _slotGrid = null;
         [Space]
@@ -23,9 +21,9 @@ namespace Wordl
         private string _wordToday = string.Empty;
         private string _wordInput = string.Empty;
 
-        private List<UISlot>  _changed  = null;
-        private Stack<UISlot> _unfilled = null;
-        private Stack<UISlot> _filled   = null;
+        private List<CharSlot>  _changed  = null;
+        private Stack<CharSlot> _unfilled = null;
+        private Stack<CharSlot> _filled   = null;
         private Dictionary<char, UIKey> _keys  = null;
 
         private const string COLOUR_PARAM = "_Color2";
@@ -112,10 +110,10 @@ namespace Wordl
         /// Retrieves and adds the input slots
         /// </summary>
         private void FetchSlots(){
-            var slots = _slotGrid.GetComponentsInChildren<UISlot>();
-            _unfilled = new Stack<UISlot>(slots.Length);
-            _filled   = new Stack<UISlot>(slots.Length);
-            _changed  = new List<UISlot>(_wordToday.Length);
+            var slots = _slotGrid.GetComponentsInChildren<CharSlot>();
+            _unfilled = new Stack<CharSlot>(slots.Length);
+            _filled   = new Stack<CharSlot>(slots.Length);
+            _changed  = new List<CharSlot>(_wordToday.Length);
 
             for (int i = slots.Length - 1; i >= 0; i--){
                 _unfilled.Push(slots[i]);
@@ -189,9 +187,8 @@ namespace Wordl
 
             var score = CompareWords();
             var won   = score == count * 2;
-            _chances -= 1;
 
-            if (won || (!won && _chances == 0)){ 
+            if (won || (!won && _unfilled.Count == 0)){ 
                 DisplayWinLoose(won);
             }
         }

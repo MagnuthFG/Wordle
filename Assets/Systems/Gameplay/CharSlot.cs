@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Magnuth.Interface
 {
-    public class UISlot : UIObject
+    public class CharSlot : UIObject
     {
         [SF] private UICharacter _character = null;
 

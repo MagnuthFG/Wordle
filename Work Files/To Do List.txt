@@ -7,6 +7,9 @@
 - Fix so that it only notifies children on rescale
   if sizing is set to relative?
 
+- Fix so that it adjusts its scale to not be resolution
+  but the corner positions of the camera frustum?
+  
 - Add enum Positioning fixed relative and add it to
   transform, underneath position. Will have to create
   a Reposition method and use that rather then Rescale
@@ -24,13 +27,11 @@
 ===============================================================
 # Continue improving the visuals
 - Add 80s scifi colours via post processing?
-
-- Add some more detail to the background.
-  Multiply glow with perlin noise to animate it?
-  Speed lines that move?
+  Include the classic retro future sun behind logo?
   
 - Add drop shadows to everything?
   Output shadow mask via SDF to Mask?
+  Must resize everything and shrink shape to make room for it
 
 
 # Continue adding features to FontSetup
