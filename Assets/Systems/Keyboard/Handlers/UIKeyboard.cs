@@ -24,7 +24,10 @@ namespace Magnuth.Interface
         private Queue<UIKey>         _pressed     = new(7);
         private Subscription<Action> _subscribers = new();
 
-        private Dictionary<char, UIKey> _keys = new(){
+        private const float  RELEASE_DELAY = 0.1f;
+        private const string RELEASE_PARAM = "OnReleaseKey";
+
+        private readonly Dictionary<char, UIKey> _keys = new(){
             { 'q', null }, { 'w', null }, { 'e', null }, { 'r', null  }, 
             { 't', null }, { 'y', null }, { 'u', null }, { 'i', null  }, 
             { 'o', null }, { 'p', null }, { 'a', null }, { 's', null  }, 
@@ -161,7 +164,7 @@ namespace Magnuth.Interface
             key.OnPointerDown(null);
 
             _pressed.Enqueue(key);
-            Invoke("OnReleaseKey", 0.1f);
+            Invoke(RELEASE_PARAM, RELEASE_DELAY);
         }
 
         /// <summary>

@@ -8,7 +8,7 @@
   if sizing is set to relative?
 
 - Fix so that it adjusts its scale to not be resolution
-  but the corner positions of the camera frustum?
+  but the corner positions of the camera frustum
   
 - Add enum Positioning fixed relative and add it to
   transform, underneath position. Will have to create
@@ -26,6 +26,9 @@
 // BUGS AND IMPROVEMENTS
 ===============================================================
 # Continue improving the visuals
+- Test setting the slot outline colour instead of 
+  background? Maybe that will look better?
+  
 - Add 80s scifi colours via post processing?
   Include the classic retro future sun behind logo?
   
