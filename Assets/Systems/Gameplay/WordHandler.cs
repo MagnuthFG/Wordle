@@ -1,8 +1,9 @@
 using SF = UnityEngine.SerializeField;
 using Random = System.Random;
-using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
 using Magnuth.Interface;
 
 namespace Wordl
@@ -14,19 +15,29 @@ namespace Wordl
         [SF] private UIKeyboard _keyboard = null;
         [SF] private UIGrid     _slotGrid = null;
         [Space]
+        [SF] private Canvas _uiCanvas = null;
+        [SF] private Text   _uiText = null;
+        [Space]
         [SF] private Color _correct   = Color.green;
         [SF] private Color _incorrect = Color.yellow;
         [SF] private Color _wrong     = Color.red;
 
-        private string _wordToday = string.Empty;
-        private string _wordInput = string.Empty;
+        private string _wordToday   = string.Empty;
+        private string _wordInput   = string.Empty;
+        private List<string> _words = null;
 
         private List<CharSlot>  _changed  = null;
         private Stack<CharSlot> _unfilled = null;
         private Stack<CharSlot> _filled   = null;
         private Dictionary<char, UIKey> _keys  = null;
 
-        private const string COLOUR_PARAM = "_Color2";
+        private Color _defSlotColour = Color.magenta;
+        private Color _defKeyColour  = Color.magenta;
+
+        private const char   NULLCHAR      = '\0';
+        private const char   RETURNCHAR    = '\n';
+        private const char   BACKSPACECHAR = '\b';
+        private const string COLOUR_PARAM  = "_Color2";
 
 // INITIALISATION
 
@@ -43,6 +54,7 @@ namespace Wordl
         private void Start(){
             FetchSlots();
             FetchKeys();
+            FetchDefaults();
         }
 
         /// <summary>
@@ -59,16 +71,40 @@ namespace Wordl
             _keyboard.Unsubscribe(OnKeyboardInput);
         }
         
+        /// <summary>
+        /// Resets the interface and starts a new game
+        /// </summary>
+        public void ResetGame(){
+            foreach (var key in _keys.Values){
+                key.SetColour(_defKeyColour, COLOUR_PARAM);
+            }
+
+            foreach (var slot in _filled){
+                slot.SetColour(_defSlotColour, COLOUR_PARAM);
+                slot.SetCharacter(NULLCHAR);
+                _unfilled.Push(slot);
+            }
+
+            _wordInput = string.Empty;
+            _wordToday = GetTodaysWord();
+
+            _filled.Clear();
+            _changed.Clear();
+
+            _uiCanvas.enabled = false;
+            this.enabled = true;
+        }
+
 // LOADING
 
         /// <summary>
         /// Picks the word of the day
         /// </summary>
         private void LoadTodaysWord(){
-            var list = GetWordList();
+            _words = GetWordList();
             
-            if (list?.Count > 0){
-                _wordToday = GetTodaysWord(list);
+            if (_words?.Count > 0){
+                _wordToday = GetTodaysWord();
 
             } else Debug.LogError(
                 new System.NullReferenceException("No words in list")
@@ -95,14 +131,17 @@ namespace Wordl
         /// <summary>
         /// Returns the pseudo random word of the day
         /// </summary>
-        private string GetTodaysWord(List<string> list){
-            var date = System.DateTime.Now.Date;
-            var seed = $"{date.Year}{date.Month}{date.Day}";
+        private string GetTodaysWord(){
+            //var date = System.DateTime.Now.Date;
+            //var seed = $"{date.Year}{date.Month}{date.Day}";
+
+            var time   = System.DateTime.Now.TimeOfDay;
+            var seed   = $"{time.Hours}{time.Minutes}{time.Seconds}";
 
             var random = new Random(int.Parse(seed));
-            var index = random.Next(0, list.Count);
+            var index  = random.Next(0, _words.Count);
 
-            return list[index].ToLower();
+            return _words[index].ToLower();
         }
 
 
@@ -111,6 +150,7 @@ namespace Wordl
         /// </summary>
         private void FetchSlots(){
             var slots = _slotGrid.GetComponentsInChildren<CharSlot>();
+
             _unfilled = new Stack<CharSlot>(slots.Length);
             _filled   = new Stack<CharSlot>(slots.Length);
             _changed  = new List<CharSlot>(_wordToday.Length);
@@ -132,6 +172,19 @@ namespace Wordl
             }
         }
 
+        /// <summary>
+        /// Retrieves the default settings
+        /// </summary>
+        private void FetchDefaults(){
+            var slot = _unfilled.Peek();
+
+            var sMaterial  = slot.Material;
+            _defSlotColour = sMaterial.GetColor(COLOUR_PARAM);
+
+            var kMaterial = _keys['a'].Material;
+            _defKeyColour = kMaterial.GetColor(COLOUR_PARAM);
+        }
+
 // WORD INPUT
 
         /// <summary>
@@ -141,9 +194,10 @@ namespace Wordl
             if (!this.enabled) return;
 
             switch (input){
-                case '\n': CheckWord();      break;
-                case '\b': RemoveFromWord(); break;
-                default:  AddToWord(input); break;
+                case NULLCHAR:                        break;
+                case RETURNCHAR:    CheckWord();      break;
+                case BACKSPACECHAR: RemoveFromWord(); break;
+                default:            AddToWord(input); break;
             }
         }
 
@@ -171,12 +225,11 @@ namespace Wordl
 
             if (_filled.Count == 0) return;
             var slot = _filled.Pop();
-            slot.SetCharacter('\0');
+            slot.SetCharacter(NULLCHAR);
 
             _unfilled.Push(slot);
             _changed.Remove(slot);
         }
-
 
         /// <summary>
         /// Checks the input against the word of the day
@@ -200,15 +253,24 @@ namespace Wordl
             var colour  = won ? _correct : _wrong;
 
             var message = won ?
-                "Congratulation! You guessed the right word!":
-                "I'm sorry. You have no more chances left";
+                "Congratulation! You guessed the right word!" +
+                $"\nThe word you guessed was {_wordToday.ToUpper()}" :
+                
+                "I'm sorry. You have no more chances left." +
+                $"\nThe word we were looking for was {_wordToday.ToUpper()}.";
 
             var hex = ColorUtility.ToHtmlStringRGB(colour);
             Debug.Log($"<color=#{hex}><b>{message}</b></color>");
 
+            // Placeholder until I have had the
+            // time to create my own UI text script
+            _uiText.text = message;
+            _uiCanvas.enabled = true;
+
             this.enabled = false;
         }
 
+// WORD COMPARISON
 
         /// <summary>
         /// Compares words and displays the result

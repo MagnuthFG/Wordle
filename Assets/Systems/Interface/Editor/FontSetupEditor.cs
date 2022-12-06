@@ -2,7 +2,6 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEditor;
-using System.Text.RegularExpressions;
 
 namespace Magnuth.Interface
 {

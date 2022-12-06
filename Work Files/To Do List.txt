@@ -46,7 +46,7 @@
 # Continue improving the UIElement
 - Fix so that when changing the size and position in the
   inspector, it will adapt to parent scales and update its
-  children as well, based on sizing
+  children as well, based on sizing?
 
   
 # Continue fixing the UIGrid

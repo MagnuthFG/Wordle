@@ -9,11 +9,6 @@ namespace Magnuth.Interface
     [AddComponentMenu("Magnuth/Interface/UI Keyboard")]
     public class UIKeyboard : UIElement, IButtonTarget
     {
-        [Header("Keyboard Input")]
-        [SF] private InputActionReference _submitInput = null;
-        [SF] private InputActionReference _removeInput = null;
-        [SF] private InputActionReference _keysInput   = null;
-
         [Header("Keyboard Grid")]
         [SF] private Vector3 _centre  = Vector3.zero;
         [SF] private Vector3 _spacing = Vector3.zero;
@@ -21,9 +16,17 @@ namespace Magnuth.Interface
         [SF] private Vector3 _widthHeightDepth = Vector3.one;
         [SF] private GameObject _prefab = null;
 
+        [Header("Keyboard Input")]
+        [SF] private InputActionReference _submitInput = null;
+        [SF] private InputActionReference _removeInput = null;
+        [SF] private InputActionReference _keysInput = null;
+
         private Queue<UIKey>         _pressed     = new(7);
         private Subscription<Action> _subscribers = new();
 
+        private const char   NULLCHAR      = '\0';
+        private const char   RETURNCHAR    = '\n';
+        private const char   BACKSPACECHAR = '\b';
         private const float  RELEASE_DELAY = 0.1f;
         private const string RELEASE_PARAM = "OnReleaseKey";
 
@@ -32,9 +35,9 @@ namespace Magnuth.Interface
             { 't', null }, { 'y', null }, { 'u', null }, { 'i', null  }, 
             { 'o', null }, { 'p', null }, { 'a', null }, { 's', null  }, 
             { 'd', null }, { 'f', null }, { 'g', null }, { 'h', null  }, 
-            { 'j', null }, { 'k', null }, { 'l', null }, { '\b', null },
+            { 'j', null }, { 'k', null }, { 'l', null }, { BACKSPACECHAR, null },
             { 'z', null }, { 'x', null }, { 'c', null }, { 'v', null  }, 
-            { 'b', null }, { 'n', null }, { 'm', null }, { '\n', null },
+            { 'b', null }, { 'n', null }, { 'm', null }, { RETURNCHAR, null },
         };
 
 // INITIALISATION
@@ -124,7 +127,7 @@ namespace Magnuth.Interface
             if (args?.Length == 0) return;
             
             var input = (char)args[0];
-            if (input == '\0') return;
+            if (input == NULLCHAR) return;
 
             _subscribers.NotifySubscribers(input);
         }
@@ -135,14 +138,14 @@ namespace Magnuth.Interface
         /// On submit word input callback
         /// </summary>
         private void OnSubmitInput(InputAction.CallbackContext ctx){
-            ActivateKey('\n');
+            ActivateKey(RETURNCHAR);
         }
 
         /// <summary>
         /// On remove character input callback
         /// </summary>
         private void OnRemoveInput(InputAction.CallbackContext ctx){
-            ActivateKey('\b');
+            ActivateKey(BACKSPACECHAR);
         }
 
         /// <summary>

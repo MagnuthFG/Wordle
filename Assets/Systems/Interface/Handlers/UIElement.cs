@@ -196,9 +196,7 @@ namespace Magnuth.Interface
         /// <summary>
         /// On inspector field changed event
         /// </summary>
-        private void OnValidate(){
-            OnInspectorUpdate();
-        }
+        private void OnValidate() => OnInspectorUpdate();
 
         /// <summary>
         /// Updates: gameobject transform via element transform

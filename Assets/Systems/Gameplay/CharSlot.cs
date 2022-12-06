@@ -9,6 +9,8 @@ namespace Magnuth.Interface
 
 // PROPERTIES
 
+        public Color Colour    => _colour;
+        public Material Material => _material;
         public char Character => _character.Character;
 
 // SETTINGS

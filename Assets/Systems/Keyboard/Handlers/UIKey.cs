@@ -8,9 +8,12 @@ namespace Magnuth.Interface
     public class UIKey : UIButton
     {
         [SF] private UICharacter _character = null;
+        private object[] _data = new object[1];
 
 // PROPERTIES
 
+        public Color Colour => _colour;
+        public Material Material => _material;
         public char Character => _character.Character;
 
 // SETTINGS
@@ -29,7 +32,9 @@ namespace Magnuth.Interface
         /// </summary>
         public override void OnPointerUp(PointerEventData data){
             SetColour(_hovering ? _highlighted : _colour);
-            _btnTarget?.OnClicked(new object[1]{ Character });
+
+            _data[0] = Character;
+            _btnTarget?.OnClicked(_data);
         }
     }
 }

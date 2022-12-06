@@ -20,7 +20,7 @@ namespace Magnuth.Interface
         protected override void Awake(){
             base.Awake();
             UpdatedResolution();
-            ChangeSize();
+            //ChangeSize();
         }
 
 // SETTINGS
@@ -51,7 +51,7 @@ namespace Magnuth.Interface
         /// </summary>
         private void LateUpdate(){
             if (UpdatedResolution()){ 
-                ChangeSize();
+                //ChangeSize();
             }
         }
 
@@ -61,8 +61,6 @@ namespace Magnuth.Interface
         private bool UpdatedResolution(){
             _current.x = Screen.width;
             _current.y = Screen.height;
-            //_current.x = 1920 * 2;
-            //_current.y = 1080;
 
             if (!ChangedResolution()) 
                 return false;
