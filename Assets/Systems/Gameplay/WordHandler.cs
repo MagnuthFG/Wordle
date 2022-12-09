@@ -221,7 +221,10 @@ namespace Wordl
         /// </summary>
         private void RemoveFromWord(){
             if (_wordInput.Length == 0) return;
-            _wordInput = _wordInput.Remove(_wordInput.Length - 1);
+            
+			_wordInput = _wordInput.Remove(
+				_wordInput.Length - 1
+			);
 
             if (_filled.Count == 0) return;
             var slot = _filled.Pop();
