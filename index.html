@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Wördle | Unity WebGL</title>
+    <title>Unity WebGL Player | Wördle</title>
   </head>
   <body bgcolor="#191D25" style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=1280 height=720 style="width: 1280px; height: 720px; background: #191D25"></canvas>
+    <canvas id="unity-canvas" width=1280 height=720 style="width: 1280px; height: 720px; background: #231F20"></canvas>
     <script src="Build/Wordle.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -25,9 +25,9 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/Wordle.data.gz",
-        frameworkUrl: "Build/Wordle.framework.js.gz",
-        codeUrl: "Build/Wordle.wasm.gz",
+        dataUrl: "Build/Wordle.data",
+        frameworkUrl: "Build/Wordle.framework.js",
+        codeUrl: "Build/Wordle.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Magnuth",
         productName: "Wördle",
